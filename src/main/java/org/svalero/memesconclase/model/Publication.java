@@ -23,12 +23,22 @@ public class Publication {
     @Column(name = "image_url")
     private String imageUrl;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type_content")
-    private String typeContent;
+    private ContentType typeContent;
 
-    @Column(name = "publication_date", updatable = false) //
+    @Column(name = "publication_date", updatable = false)
     private LocalDateTime publicationDate = LocalDateTime.now();
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String privacy = "public";
+    private Privacy privacy = Privacy.PUBLIC;
+
+    public enum ContentType {
+        IMAGE, VIDEO, TEXT
+    }
+
+    public enum Privacy {
+        PUBLIC, PRIVATE
+    }
 }
