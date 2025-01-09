@@ -1,4 +1,4 @@
-package org.svalero.memesconclase.model;
+package org.svalero.memesconclase.domain;
 
 import jakarta.persistence.*;
 import lombok.Data;

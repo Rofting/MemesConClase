@@ -4,8 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.svalero.memesconclase.domain.dto.UserOutDto;
 import org.svalero.memesconclase.exception.UserNotFoundException;
-import org.svalero.memesconclase.model.User;
+import org.svalero.memesconclase.domain.User;
 import org.svalero.memesconclase.service.UserService;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getAll() {
+    public ResponseEntity<List<UserOutDto>> getAll() {
         return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 

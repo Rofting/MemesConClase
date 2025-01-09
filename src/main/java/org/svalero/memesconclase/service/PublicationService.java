@@ -3,7 +3,7 @@ package org.svalero.memesconclase.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.svalero.memesconclase.exception.PublicationNotFoundException;
-import org.svalero.memesconclase.model.Publication;
+import org.svalero.memesconclase.domain.Publication;
 import org.svalero.memesconclase.repository.PublicationRepository;
 import org.svalero.memesconclase.repository.UserRepository;
 

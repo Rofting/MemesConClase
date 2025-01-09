@@ -1,4 +1,4 @@
-package org.svalero.memesconclase.model;
+package org.svalero.memesconclase.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

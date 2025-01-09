@@ -1,11 +1,15 @@
 package org.svalero.memesconclase.service;
 
 
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.svalero.memesconclase.domain.dto.UserOutDto;
 import org.svalero.memesconclase.exception.UserNotFoundException;
-import org.svalero.memesconclase.model.User;
+import org.svalero.memesconclase.domain.User;
 import org.svalero.memesconclase.repository.UserRepository;
+
 
 import java.util.List;
 
@@ -13,10 +17,13 @@ import java.util.List;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
-    public List<User> getAll() {
+    public List<UserOutDto> getAll() {
         List<User> allUsers = userRepository.findAll();
-        return allUsers;
+        List<UserOutDto> userOutDtos = modelMapper.map(allUsers, new TypeToken<List<UserOutDto>>() {}.getType());
+        return userOutDtos;
     }
 
     public User get(long UserId) throws UserNotFoundException {

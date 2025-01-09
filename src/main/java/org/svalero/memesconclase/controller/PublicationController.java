@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.svalero.memesconclase.exception.PublicationNotFoundException;
-import org.svalero.memesconclase.model.Publication;
+import org.svalero.memesconclase.domain.Publication;
 import org.svalero.memesconclase.service.PublicationService;
 
 import java.util.List;

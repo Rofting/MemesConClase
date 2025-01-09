@@ -1,2 +1,4 @@
-package org.svalero.memesconclase.exception;public class CommentNotFoundException {
+package org.svalero.memesconclase.exception;
+
+public class CommentNotFoundException extends Exception{
 }

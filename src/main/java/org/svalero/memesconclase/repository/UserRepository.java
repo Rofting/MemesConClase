@@ -1,6 +1,6 @@
 package org.svalero.memesconclase.repository;
 
-import org.svalero.memesconclase.model.User;
+import org.svalero.memesconclase.domain.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
