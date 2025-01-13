@@ -7,5 +7,8 @@ import java.util.List;
 
 public interface PublicationRepository extends CrudRepository<Publication, Long> {
     List<Publication> findAll();
-    List<Publication> findByUserId(long userId);
+    List<Publication> findByPrivacy(String privacy);
+    List<Publication> findByTypeContent(String typeContent);
+    List<Publication> findByTypeContentAndPrivacy(String typeContent, String privacy);
+
 }

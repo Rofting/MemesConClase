@@ -11,4 +11,5 @@ public interface ReactionRepository extends CrudRepository<Reaction, Long> {
     List<Reaction> findByUserId(Long userId);
     List<Reaction> findByPublicationId(Long publicationId);
     List<Reaction> findByType(String type);
+    List<Reaction> findByTypeAndPublicationId(String type, Long publicationId);
 }

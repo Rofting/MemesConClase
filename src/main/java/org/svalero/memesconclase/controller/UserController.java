@@ -1,9 +1,11 @@
 package org.svalero.memesconclase.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.svalero.memesconclase.domain.dto.UserInDto;
 import org.svalero.memesconclase.domain.dto.UserOutDto;
 import org.svalero.memesconclase.exception.UserNotFoundException;
 import org.svalero.memesconclase.domain.User;
@@ -18,14 +20,21 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/users")
-    public ResponseEntity<List<UserOutDto>> getAll() {
-        return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
+    public ResponseEntity<List<UserOutDto>> getAll(@RequestParam(value = "name",defaultValue = "") String name,
+                                                   @RequestParam(value = "email", defaultValue = "") String email) {
+        return new ResponseEntity<>(userService.getAll(name, email), HttpStatus.OK);
     }
 
     @GetMapping("/users/:userId")
     public ResponseEntity<User> getUserById(long userId) throws UserNotFoundException {
         User user = userService.get(userId);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PutMapping("/users/:userId")
+    public ResponseEntity<UserOutDto> modifyUser(long userId, @Valid @RequestBody UserInDto user) throws UserNotFoundException {
+        UserOutDto modifyUser = userService.modify(userId,user);
+        return new ResponseEntity<>(modifyUser, HttpStatus.OK);
     }
 
     @PostMapping("/users")
