@@ -1,6 +1,8 @@
 package org.svalero.memesconclase.controller;
 
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,43 +15,57 @@ import org.svalero.memesconclase.service.UserService;
 
 import java.util.List;
 
+
 @RestController
 
 public class UserController {
     @Autowired
     private UserService userService;
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @GetMapping("/users")
     public ResponseEntity<List<UserOutDto>> getAll(@RequestParam(value = "name",defaultValue = "") String name,
                                                    @RequestParam(value = "email", defaultValue = "") String email) {
-        return new ResponseEntity<>(userService.getAll(name, email), HttpStatus.OK);
+        logger.info("BEGIN getAll");
+        List<UserOutDto> users = userService.getAll(name, email);
+        logger.info("END getAll");
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/users/:userId")
-    public ResponseEntity<User> getUserById(long userId) throws UserNotFoundException {
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<User> getUserById(@PathVariable long userId) throws UserNotFoundException {
+        logger.info("BEGIN getUser");
         User user = userService.get(userId);
+        logger.info("END getUser");
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PutMapping("/users/:userId")
-    public ResponseEntity<UserOutDto> modifyUser(long userId, @Valid @RequestBody UserInDto user) throws UserNotFoundException {
+    @PutMapping("/users/{userId}")
+    public ResponseEntity<UserOutDto> modifyUser(@PathVariable long userId, @Valid @RequestBody UserInDto user) throws UserNotFoundException {
+        logger.info("BEGIN modifyUser");
         UserOutDto modifyUser = userService.modify(userId,user);
+        logger.info("END modifyUser");
         return new ResponseEntity<>(modifyUser, HttpStatus.OK);
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
-        return new ResponseEntity<>(userService.add(user),HttpStatus.CREATED);
+    public ResponseEntity<UserOutDto> addUser(@Valid @RequestBody UserInDto userInDto) throws UserNotFoundException {
+        logger.info("BEGIN addUser");
+        UserOutDto addUser = userService.add(userInDto);
+        logger.info("END addUser");
+        return new ResponseEntity<>(addUser, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/users/:userId")
-    public ResponseEntity<Void> deleteUser(long userId) throws UserNotFoundException {
+    @DeleteMapping("/users/{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable long userId) throws UserNotFoundException {
+        logger.info("BEGIN deleteUser");
         userService.delete(userId);
+        logger.info("END deleteUser");
         return ResponseEntity.noContent().build();
     }
-
     @ExceptionHandler
-    public ResponseEntity<Void> handleUserNotFoundException(UserNotFoundException e) {
+    public ResponseEntity<Void> handleUserNotFoundException(UserNotFoundException exception) {
+        logger.error(exception.getMessage(),exception);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

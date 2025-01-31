@@ -1,6 +1,8 @@
 package org.svalero.memesconclase.controller;
 
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,32 +20,46 @@ public class FriendshipController {
 
     @Autowired
     private FriendshipService friendshipService;
+    private final Logger logger = LoggerFactory.getLogger(FriendshipController.class);
 
     @GetMapping("/friendships")
     public ResponseEntity<List<FriendshipOutDto>> getAll(@RequestParam(value = "status", defaultValue = "") String status,
                                                          @RequestParam(value = "userId", defaultValue = "") Long userId) {
-        return new ResponseEntity<>(friendshipService.getAll(status, userId), HttpStatus.OK);
+        logger.info("Begin Get all friendships");
+        List<FriendshipOutDto> friendships = friendshipService.getAll(status, userId);
+        logger.info("End Get all friendships");
+        return new ResponseEntity<>(friendships, HttpStatus.OK);
     }
 
-    @GetMapping("/friendships/:friendshipId")
+    @GetMapping("/friendships/{friendshipId}")
     public ResponseEntity<Friendship> getById(@PathVariable long friendshipId) throws FriendshipNotFoundException {
-        return new ResponseEntity<>(friendshipService.get(friendshipId), HttpStatus.OK);
+        logger.info("Begin Get friendship by id");
+        Friendship friendship = friendshipService.get(friendshipId);
+        logger.info("End Get friendship by id");
+        return new ResponseEntity<>(friendship, HttpStatus.OK);
     }
 
     @PostMapping("/friendships")
-    public ResponseEntity<Friendship> add(@RequestBody Friendship friendship) {
-        return new ResponseEntity<>(friendshipService.add(friendship), HttpStatus.CREATED);
+    public ResponseEntity<FriendshipOutDto> addFriendship(@Valid @RequestBody FriendshipInDto friendshipInDto) {
+        logger.info("Begin Add friendship");
+        FriendshipOutDto addFriendship = friendshipService.add(friendshipInDto);
+        logger.info("End Add friendship");
+        return new ResponseEntity<>(addFriendship, HttpStatus.CREATED);
     }
 
-    @PutMapping("/friendships/:friendshipId")
-    public ResponseEntity<FriendshipOutDto>modifyFriendship(long friendshipId,@Valid @RequestBody FriendshipInDto friendship) throws FriendshipNotFoundException{
+    @PutMapping("/friendships/{friendshipId}")
+    public ResponseEntity<FriendshipOutDto>modifyFriendship(@PathVariable long friendshipId, @Valid @RequestBody FriendshipInDto friendship) throws FriendshipNotFoundException{
+        logger.info("Begin Modify friendship");
         FriendshipOutDto modifyFriendship = friendshipService.modify(friendshipId, friendship);
+        logger.info("End Modify friendship");
         return new ResponseEntity<>(modifyFriendship, HttpStatus.OK);
     }
 
-    @DeleteMapping("/friendships/:friendshipId")
+    @DeleteMapping("/friendships/{friendshipId}")
     public ResponseEntity<Void> delete(@PathVariable long friendshipId) throws FriendshipNotFoundException {
+        logger.info("Begin Delete friendship");
         friendshipService.delete(friendshipId);
+        logger.info("End Delete friendship");
         return ResponseEntity.noContent().build();
     }
 

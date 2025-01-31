@@ -1,0 +1,956 @@
+openapi: 3.0.1
+info:
+  title: Social Interaction API
+  description: API for managing users, publications, comments, reactions, and friendships.
+  version: 1.0.0
+tags:
+  - name: users
+    description: Operaciones con los usuarios
+  - name: publications
+    description: Operaciones con las publicaciones
+  - name: comments
+    description: Operaciones con los comentarios
+  - name: reactions
+    description: Operaciones con las reacciones
+  - name: friendships
+    description: Operaciones con los seguidores
+paths:
+  /users:
+    get:
+      tags:
+        - users
+      summary: Obtiene una lista de usuarios
+      description: Retrieve all registered users.
+      parameters:
+        - name: name
+          in: query
+          description: Filtro por nombre
+          required: false
+          schema:
+            type: string
+        - name: email
+          in: query
+          description: fitro por email
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+    post:
+      tags:
+        - users
+      summary: Añade un usuario
+      description: Creamos un nuevo usuario.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserOutDto'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserOutDto'
+
+  /users/{userId}:
+    get:
+      tags:
+        - users
+      summary: Obtiene un usuario mediante un Id
+      description: Retrieve all registered users.
+      parameters:
+        - name: userId
+          in: path
+          description: Identificacion por usuario
+          required: true
+          schema:
+            type: number
+            format: int64
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserOutDto'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+    delete:
+      tags:
+        - users
+      summary: Eliminar un usuario
+      description: Elimina un usuario mediante un id dado
+      parameters:
+        - name: userId
+          in: path
+          description: Identificador del usuario
+          required: true
+          schema:
+            type: number
+            format: int64
+      responses:
+        '204':
+          description: No content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+    put:
+      tags:
+        - users
+      summary: Modificar un usuario
+      description: Update the details of an existing user.
+      parameters:
+        - name: userId
+          in: path
+          description: ID of the user to modify
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInDto'
+      responses:
+        '200':
+          description: User modified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserOutDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: User not found
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+  /publications:
+    get:
+      tags:
+        - publications
+      summary: Get all publications
+      description: Retrieve all publications, optionally filtering by typeContent or privacy.
+      parameters:
+        - name: typeContent
+          in: query
+          description: Filter by content type
+          required: false
+          schema:
+            type: string
+        - name: privacy
+          in: query
+          description: Filter by privacy level
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of publications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PublicationOutDto'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+    post:
+      tags:
+        - publications
+      summary: Add a new publication
+      description: Create a new publication.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Publication'
+      responses:
+        '201':
+          description: Publication created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Publication'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalServerError'
+
+  /publications/{publicationId}:
+    get:
+      tags:
+        - publications
+      summary: Get publication by ID
+      description: Retrieve a publication by its unique ID.
+      parameters:
+        - name: publicationId
+          in: path
+          description: ID of the publication to retrieve
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Publication details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Publication'
+        '404':
+          description: Publication not found
+
+    put:
+      tags:
+        - publications
+      summary: Modify a publication
+      description: Update the details of an existing publication.
+      parameters:
+        - name: publicationId
+          in: path
+          description: ID of the publication to modify
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicationInDto'
+      responses:
+        '200':
+          description: Publication modified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicationOutDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: Publication not found
+
+    delete:
+      tags:
+        - publications
+      summary: Delete a publication
+      description: Remove a publication by its ID.
+      parameters:
+        - name: publicationId
+          in: path
+          description: ID of the publication to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Publication deleted
+        '404':
+          description: Publication not found
+
+  /comments:
+    get:
+      tags:
+        - comments
+      summary: Get all comments
+      description: Retrieve all comments, optionally filtering by content or publication ID.
+      parameters:
+        - name: content
+          in: query
+          description: Filter by comment content
+          required: false
+          schema:
+            type: string
+        - name: publicationId
+          in: query
+          description: Filter by publication ID
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of comments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentOutDto'
+
+    post:
+      tags:
+        - comments
+      summary: Add a new comment
+      description: Create a new comment for a publication.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+      responses:
+        '201':
+          description: Comment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+  /comments/{commentId}:
+    get:
+      tags:
+        - comments
+      summary: Get comment by ID
+      description: Retrieve a comment by its unique ID.
+      parameters:
+        - name: commentId
+          in: path
+          description: ID of the comment to retrieve
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Comment details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '404':
+          description: Comment not found
+
+    put:
+      tags:
+        - comments
+      summary: Modify a comment
+      description: Update the details of an existing comment.
+      parameters:
+        - name: commentId
+          in: path
+          description: ID of the comment to modify
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentInDto'
+      responses:
+        '200':
+          description: Comment modified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentOutDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: Comment not found
+
+    delete:
+      tags:
+        - comments
+      summary: Delete a comment
+      description: Remove a comment by its ID.
+      parameters:
+        - name: commentId
+          in: path
+          description: ID of the comment to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Comment deleted
+        '404':
+          description: Comment not found
+
+
+  /reactions:
+    get:
+      tags:
+        - reactions
+      summary: Get all reactions
+      description: Retrieve all reactions, optionally filtering by type or publication ID.
+      parameters:
+        - name: type
+          in: query
+          description: Filter by reaction type
+          required: false
+          schema:
+            type: string
+        - name: publicationId
+          in: query
+          description: Filter by publication ID
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of reactions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReactionOutDto'
+    post:
+      tags:
+        - reactions
+      summary: Crear una nueva reacción
+      description: Crea una nueva reacción para una publicación específica.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reaction'
+      responses:
+        '201':
+          description: Reaccion Creada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reaction'
+
+  /reactions/{reactionId}:
+    get:
+      tags:
+        - reactions
+      summary: Get reaction by ID
+      description: Retrieve a reaction by its unique ID.
+      parameters:
+        - name: reactionId
+          in: path
+          description: ID of the reaction to retrieve
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Reaction details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reaction'
+        '404':
+          description: Reaction not found
+
+    put:
+      tags:
+        - reactions
+      summary: Modify a reaction
+      description: Update the details of an existing reaction.
+      parameters:
+        - name: reactionId
+          in: path
+          description: ID of the reaction to modify
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReactionInDto'
+      responses:
+        '200':
+          description: Reaction modified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReactionOutDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: Reaction not found
+
+    delete:
+      tags:
+        - reactions
+      summary: Delete a reaction
+      description: Remove a reaction by its ID.
+      parameters:
+        - name: reactionId
+          in: path
+          description: ID of the reaction to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Reaction deleted
+        '404':
+          description: Reaction not found
+
+
+  /friendships:
+    get:
+      tags:
+        - friendships
+      summary: Get all friendships
+      description: Retrieve all friendships, optionally filtering by status or user ID.
+      parameters:
+        - name: status
+          in: query
+          description: Filter by friendship status
+          required: false
+          schema:
+            type: string
+        - name: userId
+          in: query
+          description: Filter by user ID
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of friendships
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FriendshipOutDto'
+
+    post:
+      tags:
+        - friendships
+      summary: Add a new friendship
+      description: Create a new friendship.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Friendship'
+      responses:
+        '201':
+          description: Friendship created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Friendship'
+  /friendships/{friendshipId}:
+    get:
+      tags:
+        - friendships
+      summary: Get friendship by ID
+      description: Retrieve a friendship by its unique ID.
+      parameters:
+        - name: friendshipId
+          in: path
+          description: ID of the friendship to retrieve
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Friendship details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Friendship'
+        '404':
+          description: Friendship not found
+
+    put:
+      tags:
+        - friendships
+      summary: Modify a friendship
+      description: Update the details of an existing friendship.
+      parameters:
+        - name: friendshipId
+          in: path
+          description: ID of the friendship to modify
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FriendshipInDto'
+      responses:
+        '200':
+          description: Friendship modified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FriendshipOutDto'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+        '404':
+          description: Friendship not found
+
+    delete:
+      tags:
+        - friendships
+      summary: Delete a friendship
+      description: Remove a friendship by its ID.
+      parameters:
+        - name: friendshipId
+          in: path
+          description: ID of the friendship to delete
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Friendship deleted
+        '404':
+          description: Friendship not found
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique user ID
+        name:
+          type: string
+          description: User's name
+        email:
+          type: string
+          description: User's email
+        birthDate:
+          type: string
+          format: date
+          description: Date of birth
+        active:
+          type: boolean
+          description: Indicates if user is active
+
+    UserInDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the user
+        email:
+          type: string
+          description: Email of the user
+        password:
+          type: string
+          description: Password for the user
+        avatar:
+          type: string
+          description: URL of the user's avatar
+        phone:
+          type: string
+          description: Phone number
+
+    UserOutDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique ID of the user
+        name:
+          type: string
+          description: Name of the user
+        email:
+          type: string
+          description: Email of the user
+        birthDate:
+          type: string
+          format: date
+          description: Date of birth
+        avatar:
+          type: string
+          description: URL of the user's avatar
+        phone:
+          type: string
+          description: Phone number
+        active:
+          type: boolean
+          description: Indicates if the user is active
+
+    Publication:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique publication ID
+        userId:
+          type: integer
+          description: ID of the user who created the publication
+        content:
+          type: string
+          description: Content of the publication
+        imageUrl:
+          type: string
+          description: URL of an image associated with the publication
+        privacy:
+          type: string
+          enum: [ PUBLIC, PRIVATE ]
+          description: Privacy level of the publication
+
+    PublicationInDto:
+      type: object
+      properties:
+        content:
+          type: string
+          description: Content of the publication
+        imageUrl:
+          type: string
+          description: URL of an image associated with the publication
+        privacy:
+          type: string
+          enum: [ PUBLIC, PRIVATE ]
+          description: Privacy level of the publication
+        typeContent:
+          type: string
+          enum: [ IMAGE, VIDEO, TEXT ]
+          description: Type of content in the publication
+
+    PublicationOutDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique ID of the publication
+        userId:
+          type: integer
+          description: ID of the user who created the publication
+        content:
+          type: string
+          description: Content of the publication
+        imageUrl:
+          type: string
+          description: URL of an image associated with the publication
+        privacy:
+          type: string
+          enum: [ PUBLIC, PRIVATE ]
+          description: Privacy level of the publication
+        typeContent:
+          type: string
+          enum: [ IMAGE, VIDEO, TEXT ]
+          description: Type of content in the publication
+
+    Comment:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique comment ID
+        userId:
+          type: integer
+          description: ID of the user who added the comment
+        publicationId:
+          type: integer
+          description: ID of the related publication
+        content:
+          type: string
+          description: Text content of the comment
+
+    CommentInDto:
+      type: object
+      properties:
+        content:
+          type: string
+          description: Text content of the comment
+
+    CommentOutDto:
+        type: object
+        properties:
+          id:
+            type: integer
+            description: Unique ID of the comment
+          publicationId:
+            type: integer
+            description: ID of the associated publication
+          content:
+            type: string
+            description: Text content of the comment
+
+    Reaction:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique reaction ID
+        userId:
+          type: integer
+          description: ID of the user who reacted
+        publicationId:
+          type: integer
+          description: ID of the related publication
+        type:
+          type: string
+          enum: [ LIKE, LOVE, HAHA, WOW, SAD, ANGRY ]
+          description: Type of reaction
+
+    ReactionInDto:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [ LIKE, LOVE, HAHA, WOW, SAD, ANGRY ]
+    ReactionOutDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+        publicationId:
+          type: integer
+
+    Friendship:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique friendship ID
+        userId:
+          type: integer
+          description: ID of the user who initiated the friendship
+        friendId:
+          type: integer
+          description: ID of the user who received the friendship request
+        status:
+          type: string
+          enum: [ PENDING, ACCEPTED, BLOCKED ]
+          description: Status of the friendship
+
+    FriendshipInDto:
+      type: object
+      properties:
+        friendId:
+          type: integer
+        status:
+          type: string
+          enum: [ PENDING, ACCEPTED, BLOCKED ]
+
+    FriendshipOutDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        friendId:
+          type: integer
+        status:
+          type: string
+          enum: [ PENDING, ACCEPTED, BLOCKED ]
+
+    BadRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Código de error
+          example: 400
+        message:
+          type: string
+          description: Descripción del error
+          example: Bad Request
+        errorMessages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorMessage'
+    ErrorMessage:
+        type: object
+        properties:
+          fieldName:
+            type: string
+            description: Campo donde está el error
+            example: model
+          message:
+            type: string
+            description: Mensaje de error asociado al campo
+            example: El dato es obligatorio
+    NotFound:
+        type: object
+        properties:
+          code:
+            type: string
+            description: Código de error
+            example: 404
+          message:
+            type: string
+            description: Descripción del error
+            example: Not Found
+    InternalServerError:
+        type: object
+        properties:
+          code:
+            type: string
+            description: Código de error
+            example: 500
+          message:
+            type: string
+            description: Descripción del error
+            example: Internal Server Error

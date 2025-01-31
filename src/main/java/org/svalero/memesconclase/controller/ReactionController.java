@@ -1,6 +1,8 @@
 package org.svalero.memesconclase.controller;
 
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,32 +23,45 @@ public class ReactionController {
 
     @Autowired
     private ReactionService reactionService;
+    private final Logger logger = LoggerFactory.getLogger(ReactionController.class);
 
     @GetMapping("/reactions")
     public ResponseEntity<List<ReactionOutDto>> getAll(@RequestParam(value = "type", defaultValue = "") String type,
                                                        @RequestParam(value = "publicationId", defaultValue = "") Long publicationId) {
-        return new ResponseEntity<>(reactionService.getAll(type, publicationId), HttpStatus.OK);
+        logger.info("Begin getAll reactions");
+        List<ReactionOutDto> reactions = reactionService.getAll(type, publicationId);
+        logger.info("End getAll reactions");
+        return new ResponseEntity<>(reactions, HttpStatus.OK);
     }
 
-    @GetMapping("/reactions/:reactionId")
+    @GetMapping("/reactions/{reactionId}")
     public ResponseEntity<Reaction> getById(@PathVariable long reactionId) throws ReactionNotFoundException {
-        return new ResponseEntity<>(reactionService.get(reactionId), HttpStatus.OK);
+        logger.info("Begin getById reaction");
+        Reaction reaction = reactionService.get(reactionId);
+        logger.info("End getById reaction");
+        return new ResponseEntity<>(reaction, HttpStatus.OK);
     }
 
     @PostMapping("/reactions")
-    public ResponseEntity<Reaction> add(@RequestBody Reaction reaction) {
-        return new ResponseEntity<>(reactionService.add(reaction), HttpStatus.CREATED);
+    public ResponseEntity<ReactionOutDto> addReaction(@Valid @RequestBody ReactionInDto reactionInDto) throws ReactionNotFoundException {
+        logger.info("Begin add reaction");
+        ReactionOutDto addReaction = reactionService.add(reactionInDto);
+        return new ResponseEntity<>(addReaction, HttpStatus.CREATED);
     }
 
-    @PutMapping("/reactions/:reactionId")
-    public ResponseEntity<ReactionOutDto> modifyReaction(long reactionId, @Valid @RequestBody ReactionInDto reaction) throws ReactionNotFoundException {
+    @PutMapping("/reactions/{reactionId}")
+    public ResponseEntity<ReactionOutDto> modifyReaction(@PathVariable long reactionId, @Valid @RequestBody ReactionInDto reaction) throws ReactionNotFoundException {
+        logger.info("Begin modify reaction");
         ReactionOutDto modifyReaction = reactionService.modify(reactionId,reaction);
+        logger.info("End modify reaction");
         return new ResponseEntity<>(modifyReaction, HttpStatus.OK);
     }
 
-    @DeleteMapping("/reactions/:reactionId")
+    @DeleteMapping("/reactions/{reactionId}")
     public ResponseEntity<Void> delete(@PathVariable long reactionId) throws ReactionNotFoundException {
+        logger.info("Begin delete reaction");
         reactionService.delete(reactionId);
+        logger.info("End delete reaction");
         return ResponseEntity.noContent().build();
     }
 
@@ -55,3 +70,10 @@ public class ReactionController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
+
+
+
+
+
+
+

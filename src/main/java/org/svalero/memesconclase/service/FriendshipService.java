@@ -42,8 +42,10 @@ public class FriendshipService {
                 .orElseThrow(FriendshipNotFoundException::new);
     }
 
-    public Friendship add(Friendship friendship) {
-        return friendshipRepository.save(friendship);
+    public FriendshipOutDto add(FriendshipInDto friendshipInDto) {
+        Friendship friendship = modelMapper.map(friendshipInDto, Friendship.class);
+        friendship = friendshipRepository.save(friendship);
+        return modelMapper.map(friendship, FriendshipOutDto.class);
     }
 
     public void delete(long friendshipId) throws FriendshipNotFoundException {

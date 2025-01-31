@@ -1,5 +1,6 @@
 package org.svalero.memesconclase.service;
 
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,10 @@ public class CommentService {
                 .orElseThrow(CommentNotFoundException::new);
     }
 
-    public Comment add(Comment comment) {
-        return commentRepository.save(comment);
+    public CommentOutDto add(CommentInDto commentInDto)  {
+        Comment comment = modelMapper.map(commentInDto, Comment.class);
+        comment = commentRepository.save(comment);
+        return modelMapper.map(comment, CommentOutDto.class);
     }
 
     public void delete(long commentId) throws CommentNotFoundException {

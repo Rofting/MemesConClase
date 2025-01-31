@@ -49,8 +49,10 @@ public class ReactionService {
         return modelMapper.map(reaction, ReactionOutDto.class);
     }
 
-    public Reaction add(Reaction reaction) {
-        return reactionRepository.save(reaction);
+    public ReactionOutDto add(ReactionInDto reactionInDto) {
+        Reaction reaction = modelMapper.map(reactionInDto, Reaction.class);
+        reaction = reactionRepository.save(reaction);
+        return modelMapper.map(reaction, ReactionOutDto.class);
     }
 
     public void delete(long reactionId) throws ReactionNotFoundException {

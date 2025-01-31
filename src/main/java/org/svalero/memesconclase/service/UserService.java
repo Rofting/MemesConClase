@@ -36,8 +36,8 @@ public class UserService {
         return modelMapper.map(userList, new TypeToken<List<UserOutDto>>() {}.getType());
     }
 
-    public User get(long UserId) throws UserNotFoundException {
-        return userRepository.findById(UserId).orElseThrow(UserNotFoundException::new);
+    public User get(long userId) throws UserNotFoundException {
+        return userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
     }
 
     public UserOutDto modify (long userId, UserInDto userInDto) throws UserNotFoundException {
@@ -47,12 +47,14 @@ public class UserService {
         return modelMapper.map(user, UserOutDto.class);
     }
 
-    public User add(User user) {
-        return userRepository.save(user);
+    public UserOutDto add(UserInDto userInDto) {
+        User user = modelMapper.map(userInDto, User.class);
+        user = userRepository.save(user);
+        return modelMapper.map(user, UserOutDto.class);
     }
 
     public void delete(long userId) throws UserNotFoundException {
-        userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-        userRepository.deleteById(userId);
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        userRepository.delete(user);
     }
 }
