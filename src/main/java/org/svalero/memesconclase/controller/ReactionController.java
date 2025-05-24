@@ -35,7 +35,7 @@ public class ReactionController {
     }
 
     @GetMapping("/reactions/{reactionId}")
-    public ResponseEntity<Reaction> getById(@PathVariable long reactionId) throws ReactionNotFoundException {
+        public ResponseEntity<Reaction> getById(@PathVariable long reactionId) throws ReactionNotFoundException {
         logger.info("Begin getById reaction");
         Reaction reaction = reactionService.get(reactionId);
         logger.info("End getById reaction");

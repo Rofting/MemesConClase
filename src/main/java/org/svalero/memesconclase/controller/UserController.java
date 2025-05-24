@@ -12,6 +12,8 @@ import org.svalero.memesconclase.domain.dto.UserOutDto;
 import org.svalero.memesconclase.exception.UserNotFoundException;
 import org.svalero.memesconclase.domain.User;
 import org.svalero.memesconclase.service.UserService;
+import org.svalero.memesconclase.domain.dto.LoginRequest;
+
 
 import java.util.List;
 
@@ -63,6 +65,24 @@ public class UserController {
         logger.info("END deleteUser");
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/users/login")
+    public ResponseEntity<UserOutDto> login(@RequestBody LoginRequest loginRequest) {
+        logger.info("BEGIN login");
+
+        // Llamamos al servicio para validar el usuario
+        UserOutDto user = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
+
+        if (user != null) {
+            logger.info("END login - success");
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } else {
+            logger.warn("END login - unauthorized");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+
     @ExceptionHandler
     public ResponseEntity<Void> handleUserNotFoundException(UserNotFoundException exception) {
         logger.error(exception.getMessage(),exception);

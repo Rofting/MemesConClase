@@ -1,0 +1,53 @@
+2025-05-04 18:08:15,650 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.2.Final
+2025-05-04 18:08:15,687 INFO o.s.b.StartupInfoLogger [main] Starting MemesConClaseApplication using Java 21.0.4 with PID 17524 (C:\Users\josem\IdeaProjects\MemesConClase\target\classes started by josem in C:\Users\josem\IdeaProjects\MemesConClase)
+2025-05-04 18:08:15,688 INFO o.s.b.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2025-05-04 18:08:16,004 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-04 18:08:16,037 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 28 ms. Found 5 JPA repository interfaces.
+2025-05-04 18:08:16,303 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port 8080 (http)
+2025-05-04 18:08:16,310 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2025-05-04 18:08:16,311 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2025-05-04 18:08:16,312 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-05-04 18:08:16,343 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2025-05-04 18:08:16,344 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 632 ms
+2025-05-04 18:08:16,419 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-04 18:08:16,447 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.6.4.Final
+2025-05-04 18:08:16,464 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-05-04 18:08:16,605 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-04 18:08:16,622 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2025-05-04 18:08:16,781 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/MemesConClase.db user=SA
+2025-05-04 18:08:16,782 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2025-05-04 18:08:16,795 WARN o.h.e.j.d.i.DialectFactoryImpl [main] HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-04 18:08:16,805 INFO o.h.e.j.e.i.JdbcEnvironmentInitiator [main] HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-04 18:08:17,305 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-04 18:08:17,343 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-04 18:08:17,565 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-04 18:08:17,701 INFO o.s.b.a.h.H2ConsoleAutoConfiguration$H2ConsoleLogger [main] H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/MemesConClase.db'
+2025-05-04 18:08:17,730 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2025-05-04 18:08:17,744 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port 8080 (http) with context path '/'
+2025-05-04 18:08:17,748 INFO o.s.b.StartupInfoLogger [main] Started MemesConClaseApplication in 2.358 seconds (process running for 2.554)
+2025-05-04 18:09:33,214 INFO o.a.j.l.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-04 18:09:33,215 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2025-05-04 18:09:33,215 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 0 ms
+2025-05-04 18:09:33,252 INFO o.s.m.c.UserController [http-nio-8080-exec-1] BEGIN getAll
+2025-05-04 18:09:33,351 INFO o.s.m.c.UserController [http-nio-8080-exec-1] END getAll
+2025-05-04 18:09:46,528 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] Begin getAll
+2025-05-04 18:09:46,546 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] End getAll
+2025-05-04 18:22:15,514 INFO o.s.m.c.PublicationController [http-nio-8080-exec-4] Begin getAll
+2025-05-04 18:22:15,517 INFO o.s.m.c.PublicationController [http-nio-8080-exec-4] End getAll
+2025-05-04 18:33:37,049 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] Begin getAll
+2025-05-04 18:33:37,054 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] End getAll
+2025-05-04 22:10:24,443 WARN c.z.h.p.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3h31m37s104ms30µs900ns).
+2025-05-04 23:46:22,347 INFO o.s.m.c.UserController [http-nio-8080-exec-2] BEGIN getAll
+2025-05-04 23:46:22,367 INFO o.s.m.c.UserController [http-nio-8080-exec-2] END getAll
+2025-05-04 23:46:42,557 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-4] Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' is not supported]
+2025-05-04 23:46:46,636 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-5] Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' is not supported]
+2025-05-04 23:47:30,632 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-6] Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' is not supported]
+2025-05-04 23:47:35,239 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-7] Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' is not supported]
+2025-05-04 23:47:37,272 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-8] Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' is not supported]

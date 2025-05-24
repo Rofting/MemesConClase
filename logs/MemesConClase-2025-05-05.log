@@ -1,0 +1,158 @@
+2025-05-05 00:11:46,144 INFO o.s.b.w.e.t.GracefulShutdown [SpringApplicationShutdownHook] Commencing graceful shutdown. Waiting for active requests to complete
+2025-05-05 00:11:46,165 INFO o.s.b.w.e.t.GracefulShutdown [tomcat-shutdown] Graceful shutdown complete
+2025-05-05 00:11:46,170 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-05 00:11:46,174 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2025-05-05 00:11:46,176 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2025-05-05 00:14:20,527 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.2.Final
+2025-05-05 00:14:20,562 INFO o.s.b.StartupInfoLogger [main] Starting MemesConClaseApplication using Java 21.0.4 with PID 35268 (C:\Users\josem\IdeaProjects\MemesConClase\target\classes started by josem in C:\Users\josem\IdeaProjects\MemesConClase)
+2025-05-05 00:14:20,562 INFO o.s.b.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2025-05-05 00:14:20,901 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-05-05 00:14:20,936 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 29 ms. Found 5 JPA repository interfaces.
+2025-05-05 00:14:21,217 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port 8080 (http)
+2025-05-05 00:14:21,225 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2025-05-05 00:14:21,227 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2025-05-05 00:14:21,227 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-05-05 00:14:21,267 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2025-05-05 00:14:21,268 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 683 ms
+2025-05-05 00:14:21,355 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-05-05 00:14:21,403 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.6.4.Final
+2025-05-05 00:14:21,426 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-05-05 00:14:21,597 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-05-05 00:14:21,618 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2025-05-05 00:14:21,774 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/MemesConClase.db user=SA
+2025-05-05 00:14:21,776 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2025-05-05 00:14:21,795 WARN o.h.e.j.d.i.DialectFactoryImpl [main] HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-05-05 00:14:21,809 INFO o.h.e.j.e.i.JdbcEnvironmentInitiator [main] HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-05-05 00:14:22,405 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-05-05 00:14:22,443 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-05-05 00:14:22,678 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-05-05 00:14:22,816 INFO o.s.b.a.h.H2ConsoleAutoConfiguration$H2ConsoleLogger [main] H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/MemesConClase.db'
+2025-05-05 00:14:22,845 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2025-05-05 00:14:22,862 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port 8080 (http) with context path '/'
+2025-05-05 00:14:22,867 INFO o.s.b.StartupInfoLogger [main] Started MemesConClaseApplication in 2.594 seconds (process running for 2.783)
+2025-05-05 00:14:43,261 INFO o.a.j.l.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-05-05 00:14:43,261 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2025-05-05 00:14:43,262 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 1 ms
+2025-05-05 00:14:43,287 INFO o.s.m.c.UserController [http-nio-8080-exec-1] BEGIN getAll
+2025-05-05 00:14:43,393 INFO o.s.m.c.UserController [http-nio-8080-exec-1] END getAll
+2025-05-05 00:15:24,864 INFO o.s.m.c.UserController [http-nio-8080-exec-3] BEGIN login
+2025-05-05 00:15:24,881 WARN o.s.m.c.UserController [http-nio-8080-exec-3] END login - unauthorized
+2025-05-05 00:15:33,048 INFO o.s.m.c.UserController [http-nio-8080-exec-2] BEGIN login
+2025-05-05 00:15:33,050 WARN o.s.m.c.UserController [http-nio-8080-exec-2] END login - unauthorized
+2025-05-05 00:19:18,113 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-8] Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'userId': Failed to convert value of type 'java.lang.String' to required type 'long'; For input string: ":userId"]
+2025-05-05 00:19:24,454 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-6] Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'userId': Failed to convert value of type 'java.lang.String' to required type 'long'; For input string: ":2"]
+2025-05-05 00:19:28,881 INFO o.s.m.c.UserController [http-nio-8080-exec-7] BEGIN getUser
+2025-05-05 00:19:28,887 INFO o.s.m.c.UserController [http-nio-8080-exec-7] END getUser
+2025-05-05 00:20:02,517 INFO o.s.m.c.UserController [http-nio-8080-exec-4] BEGIN login
+2025-05-05 00:20:02,519 INFO o.s.m.c.UserController [http-nio-8080-exec-4] END login - success
+2025-05-05 00:20:02,610 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] Begin getAll
+2025-05-05 00:20:02,617 INFO o.s.m.c.PublicationController [http-nio-8080-exec-10] Begin getAll
+2025-05-05 00:20:02,619 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] End getAll
+2025-05-05 00:20:02,621 INFO o.s.m.c.PublicationController [http-nio-8080-exec-10] End getAll
+2025-05-05 02:15:15,413 INFO o.s.m.c.UserController [http-nio-8080-exec-2] BEGIN login
+2025-05-05 02:15:15,434 INFO o.s.m.c.UserController [http-nio-8080-exec-2] END login - success
+2025-05-05 02:15:15,537 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] Begin getAll
+2025-05-05 02:15:15,546 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] End getAll
+2025-05-05 02:15:15,550 INFO o.s.m.c.PublicationController [http-nio-8080-exec-8] Begin getAll
+2025-05-05 02:15:15,554 INFO o.s.m.c.PublicationController [http-nio-8080-exec-8] End getAll
+2025-05-05 02:15:22,529 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] Begin getAll
+2025-05-05 02:15:22,534 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] End getAll
+2025-05-05 02:15:59,878 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-7] Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<org.svalero.memesconclase.domain.dto.PublicationOutDto> org.svalero.memesconclase.controller.PublicationController.addPublication(org.svalero.memesconclase.domain.dto.PublicationInDto): [Field error in object 'publicationInDto' on field 'userId': rejected value [null]; codes [NotNull.publicationInDto.userId,NotNull.userId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [publicationInDto.userId,userId]; arguments []; default message [userId]]; default message [El ID del usuario es obligatorio.]] ]
+2025-05-05 02:16:03,316 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-4] Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<org.svalero.memesconclase.domain.dto.PublicationOutDto> org.svalero.memesconclase.controller.PublicationController.addPublication(org.svalero.memesconclase.domain.dto.PublicationInDto): [Field error in object 'publicationInDto' on field 'userId': rejected value [null]; codes [NotNull.publicationInDto.userId,NotNull.userId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [publicationInDto.userId,userId]; arguments []; default message [userId]]; default message [El ID del usuario es obligatorio.]] ]
+2025-05-05 02:16:06,178 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-9] Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<org.svalero.memesconclase.domain.dto.PublicationOutDto> org.svalero.memesconclase.controller.PublicationController.addPublication(org.svalero.memesconclase.domain.dto.PublicationInDto): [Field error in object 'publicationInDto' on field 'userId': rejected value [null]; codes [NotNull.publicationInDto.userId,NotNull.userId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [publicationInDto.userId,userId]; arguments []; default message [userId]]; default message [El ID del usuario es obligatorio.]] ]
+2025-05-05 02:16:08,421 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-10] Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<org.svalero.memesconclase.domain.dto.PublicationOutDto> org.svalero.memesconclase.controller.PublicationController.addPublication(org.svalero.memesconclase.domain.dto.PublicationInDto): [Field error in object 'publicationInDto' on field 'userId': rejected value [null]; codes [NotNull.publicationInDto.userId,NotNull.userId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [publicationInDto.userId,userId]; arguments []; default message [userId]]; default message [El ID del usuario es obligatorio.]] ]
+2025-05-05 02:16:08,809 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-3] Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<org.svalero.memesconclase.domain.dto.PublicationOutDto> org.svalero.memesconclase.controller.PublicationController.addPublication(org.svalero.memesconclase.domain.dto.PublicationInDto): [Field error in object 'publicationInDto' on field 'userId': rejected value [null]; codes [NotNull.publicationInDto.userId,NotNull.userId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [publicationInDto.userId,userId]; arguments []; default message [userId]]; default message [El ID del usuario es obligatorio.]] ]
+2025-05-05 02:16:09,030 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-1] Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<org.svalero.memesconclase.domain.dto.PublicationOutDto> org.svalero.memesconclase.controller.PublicationController.addPublication(org.svalero.memesconclase.domain.dto.PublicationInDto): [Field error in object 'publicationInDto' on field 'userId': rejected value [null]; codes [NotNull.publicationInDto.userId,NotNull.userId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [publicationInDto.userId,userId]; arguments []; default message [userId]]; default message [El ID del usuario es obligatorio.]] ]
+2025-05-05 02:16:20,779 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-2] Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<org.svalero.memesconclase.domain.dto.PublicationOutDto> org.svalero.memesconclase.controller.PublicationController.addPublication(org.svalero.memesconclase.domain.dto.PublicationInDto): [Field error in object 'publicationInDto' on field 'userId': rejected value [null]; codes [NotNull.publicationInDto.userId,NotNull.userId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [publicationInDto.userId,userId]; arguments []; default message [userId]]; default message [El ID del usuario es obligatorio.]] ]
+2025-05-05 02:16:26,410 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-5] Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<org.svalero.memesconclase.domain.dto.PublicationOutDto> org.svalero.memesconclase.controller.PublicationController.addPublication(org.svalero.memesconclase.domain.dto.PublicationInDto): [Field error in object 'publicationInDto' on field 'userId': rejected value [null]; codes [NotNull.publicationInDto.userId,NotNull.userId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [publicationInDto.userId,userId]; arguments []; default message [userId]]; default message [El ID del usuario es obligatorio.]] ]
+2025-05-05 02:16:28,814 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-8] Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<org.svalero.memesconclase.domain.dto.PublicationOutDto> org.svalero.memesconclase.controller.PublicationController.addPublication(org.svalero.memesconclase.domain.dto.PublicationInDto): [Field error in object 'publicationInDto' on field 'userId': rejected value [null]; codes [NotNull.publicationInDto.userId,NotNull.userId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [publicationInDto.userId,userId]; arguments []; default message [userId]]; default message [El ID del usuario es obligatorio.]] ]
+2025-05-05 02:16:33,444 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-6] Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<org.svalero.memesconclase.domain.dto.PublicationOutDto> org.svalero.memesconclase.controller.PublicationController.addPublication(org.svalero.memesconclase.domain.dto.PublicationInDto): [Field error in object 'publicationInDto' on field 'userId': rejected value [null]; codes [NotNull.publicationInDto.userId,NotNull.userId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [publicationInDto.userId,userId]; arguments []; default message [userId]]; default message [El ID del usuario es obligatorio.]] ]
+2025-05-05 02:16:37,013 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-7] Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<org.svalero.memesconclase.domain.dto.PublicationOutDto> org.svalero.memesconclase.controller.PublicationController.addPublication(org.svalero.memesconclase.domain.dto.PublicationInDto): [Field error in object 'publicationInDto' on field 'userId': rejected value [null]; codes [NotNull.publicationInDto.userId,NotNull.userId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [publicationInDto.userId,userId]; arguments []; default message [userId]]; default message [El ID del usuario es obligatorio.]] ]
+2025-05-05 02:16:37,906 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-4] Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<org.svalero.memesconclase.domain.dto.PublicationOutDto> org.svalero.memesconclase.controller.PublicationController.addPublication(org.svalero.memesconclase.domain.dto.PublicationInDto): [Field error in object 'publicationInDto' on field 'userId': rejected value [null]; codes [NotNull.publicationInDto.userId,NotNull.userId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [publicationInDto.userId,userId]; arguments []; default message [userId]]; default message [El ID del usuario es obligatorio.]] ]
+2025-05-05 02:16:48,355 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] Begin getAll
+2025-05-05 02:16:48,360 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] End getAll
+2025-05-05 13:02:27,124 WARN c.z.h.p.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=10h42m50s846ms145µs800ns).
+2025-05-05 13:12:41,796 WARN c.z.h.p.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5m14s484ms858µs500ns).
+2025-05-05 13:22:11,742 WARN c.z.h.p.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8m29s925ms180µs700ns).
+2025-05-05 15:51:18,660 WARN c.z.h.p.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h24m6s833ms595µs300ns).
+2025-05-05 16:24:46,739 WARN c.z.h.p.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=32m28s56ms846µs100ns).
+2025-05-05 16:48:45,184 INFO o.s.m.c.UserController [http-nio-8080-exec-3] BEGIN login
+2025-05-05 16:48:45,189 INFO o.s.m.c.UserController [http-nio-8080-exec-3] END login - success
+2025-05-05 16:48:45,306 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] Begin getAll
+2025-05-05 16:48:45,313 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] End getAll
+2025-05-05 16:48:45,321 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] Begin getAll
+2025-05-05 16:48:45,326 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] End getAll
+2025-05-05 18:02:49,019 INFO o.s.m.c.FriendshipController [http-nio-8080-exec-6] Begin Get all friendships
+2025-05-05 18:02:49,058 INFO o.s.m.c.FriendshipController [http-nio-8080-exec-6] End Get all friendships
+2025-05-05 20:36:03,441 INFO o.s.m.c.UserController [http-nio-8080-exec-4] BEGIN login
+2025-05-05 20:36:03,457 INFO o.s.m.c.UserController [http-nio-8080-exec-4] END login - success
+2025-05-05 20:36:03,589 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] Begin getAll
+2025-05-05 20:36:03,596 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] End getAll
+2025-05-05 20:36:03,608 INFO o.s.m.c.PublicationController [http-nio-8080-exec-10] Begin getAll
+2025-05-05 20:36:03,612 INFO o.s.m.c.PublicationController [http-nio-8080-exec-10] End getAll
+2025-05-05 20:36:19,191 INFO o.s.m.c.FriendshipController [http-nio-8080-exec-3] Begin Get all friendships
+2025-05-05 20:36:19,194 INFO o.s.m.c.FriendshipController [http-nio-8080-exec-3] End Get all friendships
+2025-05-05 20:36:27,591 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] Begin getAll
+2025-05-05 20:36:27,593 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] End getAll
+2025-05-05 20:36:32,136 INFO o.s.m.c.FriendshipController [http-nio-8080-exec-2] Begin Get all friendships
+2025-05-05 20:36:32,139 INFO o.s.m.c.FriendshipController [http-nio-8080-exec-2] End Get all friendships
+2025-05-05 20:36:41,425 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] Begin getAll
+2025-05-05 20:36:41,427 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] End getAll
+2025-05-05 20:36:46,644 INFO o.s.m.c.UserController [http-nio-8080-exec-8] BEGIN login
+2025-05-05 20:36:46,645 INFO o.s.m.c.UserController [http-nio-8080-exec-8] END login - success
+2025-05-05 20:36:46,695 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] Begin getAll
+2025-05-05 20:36:46,697 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] End getAll
+2025-05-05 20:36:46,698 INFO o.s.m.c.PublicationController [http-nio-8080-exec-7] Begin getAll
+2025-05-05 20:36:46,699 INFO o.s.m.c.PublicationController [http-nio-8080-exec-7] End getAll
+2025-05-05 20:48:50,119 INFO o.s.m.c.UserController [http-nio-8080-exec-10] BEGIN login
+2025-05-05 20:48:50,121 INFO o.s.m.c.UserController [http-nio-8080-exec-10] END login - success
+2025-05-05 20:48:50,242 INFO o.s.m.c.PublicationController [http-nio-8080-exec-3] Begin getAll
+2025-05-05 20:48:50,245 INFO o.s.m.c.PublicationController [http-nio-8080-exec-3] End getAll
+2025-05-05 20:48:50,251 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] Begin getAll
+2025-05-05 20:48:50,254 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] End getAll
+2025-05-05 20:48:53,120 INFO o.s.m.c.FriendshipController [http-nio-8080-exec-2] Begin Get all friendships
+2025-05-05 20:48:53,123 INFO o.s.m.c.FriendshipController [http-nio-8080-exec-2] End Get all friendships
+2025-05-05 20:48:55,611 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] Begin getAll
+2025-05-05 20:48:55,613 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] End getAll
+2025-05-05 20:49:07,173 INFO o.s.m.c.PublicationController [http-nio-8080-exec-8] Begin getAll
+2025-05-05 20:49:07,176 INFO o.s.m.c.PublicationController [http-nio-8080-exec-8] End getAll
+2025-05-05 20:49:17,411 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] Begin getAll
+2025-05-05 20:49:17,414 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] End getAll
+2025-05-05 20:49:29,054 INFO o.s.m.c.PublicationController [http-nio-8080-exec-7] Begin getAll
+2025-05-05 20:49:29,056 INFO o.s.m.c.PublicationController [http-nio-8080-exec-7] End getAll
+2025-05-05 20:49:34,460 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] Begin getAll
+2025-05-05 20:49:34,462 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] End getAll
+2025-05-05 20:50:30,917 INFO o.s.m.c.PublicationController [http-nio-8080-exec-10] Begin getAll
+2025-05-05 20:50:30,922 INFO o.s.m.c.PublicationController [http-nio-8080-exec-10] End getAll
+2025-05-05 20:50:34,645 INFO o.s.m.c.UserController [http-nio-8080-exec-3] BEGIN login
+2025-05-05 20:50:34,647 INFO o.s.m.c.UserController [http-nio-8080-exec-3] END login - success
+2025-05-05 20:50:34,701 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] Begin getAll
+2025-05-05 20:50:34,704 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] End getAll
+2025-05-05 20:50:34,726 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] Begin getAll
+2025-05-05 20:50:34,729 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] End getAll
+2025-05-05 20:50:43,742 INFO o.s.m.c.UserController [http-nio-8080-exec-5] BEGIN login
+2025-05-05 20:50:43,744 INFO o.s.m.c.UserController [http-nio-8080-exec-5] END login - success
+2025-05-05 20:50:43,789 INFO o.s.m.c.PublicationController [http-nio-8080-exec-8] Begin getAll
+2025-05-05 20:50:43,791 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] Begin getAll
+2025-05-05 20:50:43,792 INFO o.s.m.c.PublicationController [http-nio-8080-exec-8] End getAll
+2025-05-05 20:50:43,794 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] End getAll
+2025-05-05 20:51:12,730 INFO o.s.m.c.UserController [http-nio-8080-exec-7] BEGIN login
+2025-05-05 20:51:12,732 INFO o.s.m.c.UserController [http-nio-8080-exec-7] END login - success
+2025-05-05 20:51:12,779 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] Begin getAll
+2025-05-05 20:51:12,780 INFO o.s.m.c.PublicationController [http-nio-8080-exec-4] Begin getAll
+2025-05-05 20:51:12,782 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] End getAll
+2025-05-05 20:51:12,782 INFO o.s.m.c.PublicationController [http-nio-8080-exec-4] End getAll
+2025-05-05 20:51:16,566 INFO o.s.m.c.FriendshipController [http-nio-8080-exec-10] Begin Get all friendships
+2025-05-05 20:51:16,568 INFO o.s.m.c.FriendshipController [http-nio-8080-exec-10] End Get all friendships
+2025-05-05 20:51:22,231 INFO o.s.m.c.PublicationController [http-nio-8080-exec-3] Begin getAll
+2025-05-05 20:51:22,235 INFO o.s.m.c.PublicationController [http-nio-8080-exec-3] End getAll
+2025-05-05 20:51:34,213 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-1] Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<org.svalero.memesconclase.domain.dto.PublicationOutDto> org.svalero.memesconclase.controller.PublicationController.addPublication(org.svalero.memesconclase.domain.dto.PublicationInDto): [Field error in object 'publicationInDto' on field 'userId': rejected value [null]; codes [NotNull.publicationInDto.userId,NotNull.userId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [publicationInDto.userId,userId]; arguments []; default message [userId]]; default message [El ID del usuario es obligatorio.]] ]
+2025-05-05 20:51:43,276 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] Begin getAll
+2025-05-05 20:51:43,278 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] End getAll

@@ -13,6 +13,7 @@ import org.svalero.memesconclase.repository.UserRepository;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -27,14 +28,18 @@ public class UserService {
         if (name.isEmpty() && email.isEmpty()) {
             userList = userRepository.findAll();
         } else if (name.isEmpty()) {
-            userList = userRepository.findByEmail(email);
+            userList = userRepository.findByEmail(email)
+                    .map(List::of)
+                    .orElse(List.of());
         } else if (email.isEmpty()) {
             userList = userRepository.findByName(name);
-        }else {
+        } else {
             userList = userRepository.findByNameAndEmail(name, email);
         }
+
         return modelMapper.map(userList, new TypeToken<List<UserOutDto>>() {}.getType());
     }
+
 
     public User get(long userId) throws UserNotFoundException {
         return userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
@@ -57,4 +62,20 @@ public class UserService {
         User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         userRepository.delete(user);
     }
+
+    public UserOutDto login(String email, String password) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+
+            if (user.getPassword().equals(password)) {
+                return new UserOutDto(user);
+            }
+        }
+
+        return null;
+    }
+
+
 }
