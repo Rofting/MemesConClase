@@ -13,4 +13,7 @@ public class PublicationOutDto {
     private String privacy;
     private LocalDateTime publicationDate;
     private String userName;
+
+    private Double latitude;
+    private Double longitude;
 }

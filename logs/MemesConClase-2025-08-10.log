@@ -1,0 +1,416 @@
+2025-08-10 12:00:27,552 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.2.Final
+2025-08-10 12:00:27,596 INFO o.s.b.StartupInfoLogger [main] Starting MemesConClaseApplication using Java 21.0.4 with PID 39584 (C:\Users\josem\IdeaProjects\MemesConClase\target\classes started by josem in C:\Users\josem\IdeaProjects\MemesConClase)
+2025-08-10 12:00:27,597 INFO o.s.b.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2025-08-10 12:00:28,076 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-10 12:00:28,120 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 35 ms. Found 5 JPA repository interfaces.
+2025-08-10 12:00:28,563 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port 8080 (http)
+2025-08-10 12:00:28,572 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2025-08-10 12:00:28,573 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2025-08-10 12:00:28,574 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-08-10 12:00:28,617 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2025-08-10 12:00:28,618 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 989 ms
+2025-08-10 12:00:28,741 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-10 12:00:28,805 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.6.4.Final
+2025-08-10 12:00:28,833 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-08-10 12:00:29,049 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-10 12:00:29,083 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2025-08-10 12:00:29,474 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/MemesConClase.db user=SA
+2025-08-10 12:00:29,475 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2025-08-10 12:00:29,497 WARN o.h.e.j.d.i.DialectFactoryImpl [main] HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-10 12:00:29,512 INFO o.h.e.j.e.i.JdbcEnvironmentInitiator [main] HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-10 12:00:30,235 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-10 12:00:30,279 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-10 12:00:31,046 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-10 12:00:31,263 INFO o.s.b.a.h.H2ConsoleAutoConfiguration$H2ConsoleLogger [main] H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/MemesConClase.db'
+2025-08-10 12:00:31,307 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2025-08-10 12:00:31,318 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port 8080 (http) with context path '/'
+2025-08-10 12:00:31,323 INFO o.s.b.StartupInfoLogger [main] Started MemesConClaseApplication in 4.132 seconds (process running for 4.686)
+2025-08-10 13:02:08,850 WARN c.z.h.p.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=48m9s244ms626µs500ns).
+2025-08-10 14:45:04,597 WARN c.z.h.p.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=10m25s550ms82µs500ns).
+2025-08-10 14:59:43,294 INFO o.a.j.l.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-10 14:59:43,296 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2025-08-10 14:59:43,302 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 6 ms
+2025-08-10 14:59:43,400 INFO o.s.m.c.UserController [http-nio-8080-exec-1] BEGIN login
+2025-08-10 14:59:43,579 INFO o.s.m.c.UserController [http-nio-8080-exec-1] END login - success
+2025-08-10 14:59:43,778 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] Begin getAll
+2025-08-10 14:59:43,827 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] End getAll
+2025-08-10 15:00:04,063 INFO o.s.m.c.UserController [http-nio-8080-exec-4] BEGIN login
+2025-08-10 15:00:04,065 WARN o.s.m.c.UserController [http-nio-8080-exec-4] END login - unauthorized
+2025-08-10 15:00:17,514 INFO o.s.m.c.UserController [http-nio-8080-exec-5] BEGIN login
+2025-08-10 15:00:17,515 WARN o.s.m.c.UserController [http-nio-8080-exec-5] END login - unauthorized
+2025-08-10 15:00:17,899 INFO o.s.m.c.UserController [http-nio-8080-exec-6] BEGIN login
+2025-08-10 15:00:17,901 WARN o.s.m.c.UserController [http-nio-8080-exec-6] END login - unauthorized
+2025-08-10 15:00:34,080 INFO o.s.m.c.UserController [http-nio-8080-exec-8] BEGIN login
+2025-08-10 15:00:34,081 INFO o.s.m.c.UserController [http-nio-8080-exec-8] END login - success
+2025-08-10 15:00:34,197 INFO o.s.m.c.PublicationController [http-nio-8080-exec-7] Begin getAll
+2025-08-10 15:00:34,199 INFO o.s.m.c.PublicationController [http-nio-8080-exec-7] End getAll
+2025-08-10 15:03:53,177 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.2.Final
+2025-08-10 15:03:53,215 INFO o.s.b.StartupInfoLogger [main] Starting MemesConClaseApplication using Java 21.0.4 with PID 6656 (C:\Users\josem\IdeaProjects\MemesConClase\target\classes started by josem in C:\Users\josem\IdeaProjects\MemesConClase)
+2025-08-10 15:03:53,216 INFO o.s.b.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2025-08-10 15:03:53,575 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-10 15:03:53,615 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 34 ms. Found 5 JPA repository interfaces.
+2025-08-10 15:03:53,928 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port 8080 (http)
+2025-08-10 15:03:53,938 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2025-08-10 15:03:53,940 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2025-08-10 15:03:53,941 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-08-10 15:03:53,986 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2025-08-10 15:03:53,987 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 744 ms
+2025-08-10 15:03:54,076 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-10 15:03:54,126 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.6.4.Final
+2025-08-10 15:03:54,152 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-08-10 15:03:54,335 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-10 15:03:54,356 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2025-08-10 15:03:55,446 WARN o.h.e.j.s.SqlExceptionHelper [main] SQL Error: 90020, SQLState: 90020
+2025-08-10 15:03:55,446 ERROR o.h.e.j.s.SqlExceptionHelper [main] La base de datos puede que ya esté siendo utilizada: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Soluciones Posibles: cierre todas las otras conexiones; use el modo server
+Database may be already in use: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Possible solutions: close all other connection(s); use the server mode [90020-232]
+2025-08-10 15:03:55,447 WARN o.h.e.j.e.i.JdbcEnvironmentInitiator [main] HHH000342: Could not obtain connection to query metadata
+org.hibernate.exception.GenericJDBCException: unable to obtain isolated JDBC connection [La base de datos puede que ya esté siendo utilizada: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Soluciones Posibles: cierre todas las otras conexiones; use el modo server
+Database may be already in use: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Possible solutions: close all other connection(s); use the server mode [90020-232]] [n/a]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:63)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:116)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.getJdbcEnvironmentUsingJdbcMetadata(JdbcEnvironmentInitiator.java:320)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:129)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:81)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:130)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:238)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:215)
+	at org.hibernate.boot.model.relational.Database.<init>(Database.java:45)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.getDatabase(InFlightMetadataCollectorImpl.java:226)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:194)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:171)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1431)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1502)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1855)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:601)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:289)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:970)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at org.svalero.memesconclase.MemesConClaseApplication.main(MemesConClaseApplication.java:10)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos puede que ya esté siendo utilizada: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Soluciones Posibles: cierre todas las otras conexiones; use el modo server
+Database may be already in use: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Possible solutions: close all other connection(s); use the server mode [90020-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.convertMVStoreException(Store.java:165)
+	at org.h2.mvstore.db.Store.<init>(Store.java:142)
+	at org.h2.engine.Database.<init>(Database.java:326)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:344)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:124)
+	at org.h2.Driver.connect(Driver.java:59)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:137)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:360)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:202)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:461)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:550)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:98)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111)
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:126)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:467)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcIsolationDelegate.delegateWork(JdbcIsolationDelegate.java:61)
+	... 35 common frames omitted
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db [2.3.232/7]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.SingleFileStore.lockFileChannel(SingleFileStore.java:143)
+	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:117)
+	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:286)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2035)
+	at org.h2.mvstore.db.Store.<init>(Store.java:133)
+	... 52 common frames omitted
+2025-08-10 15:03:55,468 WARN o.h.e.j.d.i.DialectFactoryImpl [main] HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-10 15:03:55,475 INFO o.h.e.j.e.i.JdbcEnvironmentInitiator [main] HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (null)']
+	Database driver: undefined/unknown
+	Database version: 2.1.214
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-10 15:03:56,166 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-10 15:03:56,179 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2025-08-10 15:03:57,193 WARN o.h.e.j.s.SqlExceptionHelper [main] SQL Error: 90020, SQLState: 90020
+2025-08-10 15:03:57,193 ERROR o.h.e.j.s.SqlExceptionHelper [main] La base de datos puede que ya esté siendo utilizada: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Soluciones Posibles: cierre todas las otras conexiones; use el modo server
+Database may be already in use: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Possible solutions: close all other connection(s); use the server mode [90020-232]
+2025-08-10 15:03:57,197 ERROR o.s.o.j.AbstractEntityManagerFactoryBean [main] Failed to initialize JPA EntityManagerFactory: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution [La base de datos puede que ya esté siendo utilizada: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Soluciones Posibles: cierre todas las otras conexiones; use el modo server
+Database may be already in use: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Possible solutions: close all other connection(s); use the server mode [90020-232]] [n/a]
+2025-08-10 15:03:57,197 WARN o.s.c.s.AbstractApplicationContext [main] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution [La base de datos puede que ya esté siendo utilizada: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Soluciones Posibles: cierre todas las otras conexiones; use el modo server
+Database may be already in use: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Possible solutions: close all other connection(s); use the server mode [90020-232]] [n/a]
+2025-08-10 15:03:57,199 INFO o.a.j.l.DirectJDKLog [main] Stopping service [Tomcat]
+2025-08-10 15:03:57,205 INFO o.s.b.a.l.ConditionEvaluationReportLogger [main] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-08-10 15:03:57,217 ERROR o.s.b.SpringApplication [main] Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution [La base de datos puede que ya esté siendo utilizada: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Soluciones Posibles: cierre todas las otras conexiones; use el modo server
+Database may be already in use: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Possible solutions: close all other connection(s); use the server mode [90020-232]] [n/a]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1808)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:601)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:289)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:204)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:970)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at org.svalero.memesconclase.MemesConClaseApplication.main(MemesConClaseApplication.java:10)
+Caused by: jakarta.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution [La base de datos puede que ya esté siendo utilizada: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Soluciones Posibles: cierre todas las otras conexiones; use el modo server
+Database may be already in use: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Possible solutions: close all other connection(s); use the server mode [90020-232]] [n/a]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:431)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:400)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1855)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804)
+	... 15 common frames omitted
+Caused by: org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution [La base de datos puede que ya esté siendo utilizada: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Soluciones Posibles: cierre todas las otras conexiones; use el modo server
+Database may be already in use: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Possible solutions: close all other connection(s); use the server mode [90020-232]] [n/a]
+	at org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:51)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl.getIsolatedConnection(DdlTransactionIsolatorNonJtaImpl.java:74)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl.getIsolatedConnection(DdlTransactionIsolatorNonJtaImpl.java:39)
+	at org.hibernate.tool.schema.internal.exec.ImprovedExtractionContextImpl.getJdbcConnection(ImprovedExtractionContextImpl.java:63)
+	at org.hibernate.tool.schema.extract.spi.ExtractionContext.getQueryResults(ExtractionContext.java:43)
+	at org.hibernate.tool.schema.extract.internal.SequenceInformationExtractorLegacyImpl.extractMetadata(SequenceInformationExtractorLegacyImpl.java:39)
+	at org.hibernate.tool.schema.extract.internal.DatabaseInformationImpl.initializeSequences(DatabaseInformationImpl.java:66)
+	at org.hibernate.tool.schema.extract.internal.DatabaseInformationImpl.<init>(DatabaseInformationImpl.java:60)
+	at org.hibernate.tool.schema.internal.Helper.buildDatabaseInformation(Helper.java:185)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:93)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:280)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:324)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:463)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1506)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:419)
+	... 19 common frames omitted
+Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: La base de datos puede que ya esté siendo utilizada: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Soluciones Posibles: cierre todas las otras conexiones; use el modo server
+Database may be already in use: "C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db". Possible solutions: close all other connection(s); use the server mode [90020-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.convertMVStoreException(Store.java:165)
+	at org.h2.mvstore.db.Store.<init>(Store.java:142)
+	at org.h2.engine.Database.<init>(Database.java:326)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:344)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:124)
+	at org.h2.Driver.connect(Driver.java:59)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:137)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:360)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:202)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:461)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:550)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:98)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111)
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:126)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:467)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl.getIsolatedConnection(DdlTransactionIsolatorNonJtaImpl.java:46)
+	... 39 common frames omitted
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/josem/IdeaProjects/MemesConClase/data/MemesConClase.db.mv.db [2.3.232/7]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.SingleFileStore.lockFileChannel(SingleFileStore.java:143)
+	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:117)
+	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:286)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2035)
+	at org.h2.mvstore.db.Store.<init>(Store.java:133)
+	... 56 common frames omitted
+2025-08-10 15:05:20,589 INFO o.s.b.w.e.t.GracefulShutdown [SpringApplicationShutdownHook] Commencing graceful shutdown. Waiting for active requests to complete
+2025-08-10 15:05:20,597 INFO o.s.b.w.e.t.GracefulShutdown [tomcat-shutdown] Graceful shutdown complete
+2025-08-10 15:05:20,601 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-08-10 15:05:20,605 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2025-08-10 15:05:20,606 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2025-08-10 15:05:59,297 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.2.Final
+2025-08-10 15:05:59,332 INFO o.s.b.StartupInfoLogger [main] Starting MemesConClaseApplication using Java 21.0.4 with PID 34204 (C:\Users\josem\IdeaProjects\MemesConClase\target\classes started by josem in C:\Users\josem\IdeaProjects\MemesConClase)
+2025-08-10 15:05:59,333 INFO o.s.b.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2025-08-10 15:05:59,701 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-10 15:05:59,737 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 32 ms. Found 5 JPA repository interfaces.
+2025-08-10 15:06:00,035 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port 8080 (http)
+2025-08-10 15:06:00,043 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2025-08-10 15:06:00,045 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2025-08-10 15:06:00,045 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-08-10 15:06:00,080 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2025-08-10 15:06:00,081 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 719 ms
+2025-08-10 15:06:00,171 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-10 15:06:00,200 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.6.4.Final
+2025-08-10 15:06:00,219 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-08-10 15:06:00,371 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-10 15:06:00,389 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2025-08-10 15:06:00,539 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/MemesConClase.db user=SA
+2025-08-10 15:06:00,540 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2025-08-10 15:06:00,555 WARN o.h.e.j.d.i.DialectFactoryImpl [main] HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-10 15:06:00,567 INFO o.h.e.j.e.i.JdbcEnvironmentInitiator [main] HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-10 15:06:01,148 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-10 15:06:01,188 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-10 15:06:01,667 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-10 15:06:01,827 INFO o.s.b.a.h.H2ConsoleAutoConfiguration$H2ConsoleLogger [main] H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/MemesConClase.db'
+2025-08-10 15:06:01,858 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2025-08-10 15:06:01,876 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port 8080 (http) with context path '/'
+2025-08-10 15:06:01,880 INFO o.s.b.StartupInfoLogger [main] Started MemesConClaseApplication in 2.841 seconds (process running for 3.041)
+2025-08-10 15:06:27,703 INFO o.a.j.l.DirectJDKLog [http-nio-8080-exec-3] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-10 15:06:27,703 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-3] Initializing Servlet 'dispatcherServlet'
+2025-08-10 15:06:27,704 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-3] Completed initialization in 1 ms
+2025-08-10 15:06:27,765 INFO o.s.m.c.UserController [http-nio-8080-exec-3] BEGIN login
+2025-08-10 15:06:27,855 INFO o.s.m.c.UserController [http-nio-8080-exec-3] END login - success
+2025-08-10 15:06:28,004 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] Begin getAll
+2025-08-10 15:06:28,026 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] End getAll
+2025-08-10 15:29:11,318 INFO o.s.m.c.UserController [http-nio-8080-exec-4] BEGIN login
+2025-08-10 15:29:11,321 INFO o.s.m.c.UserController [http-nio-8080-exec-4] END login - success
+2025-08-10 15:29:11,450 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] Begin getAll
+2025-08-10 15:29:11,454 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] End getAll
+2025-08-10 15:29:16,276 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] Begin getAll
+2025-08-10 15:29:16,280 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] End getAll
+2025-08-10 16:16:42,146 INFO o.s.m.c.UserController [http-nio-8080-exec-8] BEGIN login
+2025-08-10 16:16:42,184 INFO o.s.m.c.UserController [http-nio-8080-exec-8] END login - success
+2025-08-10 16:16:42,321 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] Begin getAll
+2025-08-10 16:16:42,341 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] End getAll
+2025-08-10 16:16:50,041 INFO o.s.m.c.UserController [http-nio-8080-exec-10] BEGIN getUser
+2025-08-10 16:16:50,042 INFO o.s.m.c.PublicationController [http-nio-8080-exec-3] Begin getUserPublications by user 1
+2025-08-10 16:16:50,069 INFO o.s.m.c.PublicationController [http-nio-8080-exec-3] End getUserPublications by user 1
+2025-08-10 16:16:50,069 INFO o.s.m.c.UserController [http-nio-8080-exec-10] END getUser
+2025-08-10 16:16:58,687 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] Begin getAll
+2025-08-10 16:16:58,693 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] End getAll
+2025-08-10 16:17:03,697 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] Begin getUserPublications by user 1
+2025-08-10 16:17:03,697 INFO o.s.m.c.UserController [http-nio-8080-exec-4] BEGIN getUser
+2025-08-10 16:17:03,705 INFO o.s.m.c.UserController [http-nio-8080-exec-4] END getUser
+2025-08-10 16:17:03,706 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] End getUserPublications by user 1
+2025-08-10 16:17:14,118 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] Begin getAll
+2025-08-10 16:17:14,124 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] End getAll
+2025-08-10 16:17:20,344 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] Begin getAll
+2025-08-10 16:17:20,348 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] End getAll
+2025-08-10 16:17:21,663 INFO o.s.m.c.PublicationController [http-nio-8080-exec-7] Begin getAll
+2025-08-10 16:17:21,681 INFO o.s.m.c.PublicationController [http-nio-8080-exec-7] End getAll
+2025-08-10 16:17:27,933 INFO o.s.m.c.UserController [http-nio-8080-exec-8] BEGIN getUser
+2025-08-10 16:17:27,933 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] Begin getUserPublications by user 1
+2025-08-10 16:17:27,937 INFO o.s.m.c.UserController [http-nio-8080-exec-8] END getUser
+2025-08-10 16:17:27,941 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] End getUserPublications by user 1
+2025-08-10 16:17:46,031 INFO o.s.m.c.PublicationController [http-nio-8080-exec-3] Begin getAll
+2025-08-10 16:17:46,037 INFO o.s.m.c.PublicationController [http-nio-8080-exec-3] End getAll
+2025-08-10 19:22:04,805 WARN c.z.h.p.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=17m1s173ms889µs600ns).
+2025-08-10 20:55:54,119 INFO o.s.m.c.UserController [http-nio-8080-exec-4] BEGIN login
+2025-08-10 20:55:54,152 INFO o.s.m.c.UserController [http-nio-8080-exec-4] END login - success
+2025-08-10 20:55:54,313 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] Begin getAll
+2025-08-10 20:55:54,345 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] End getAll
+2025-08-10 20:55:56,908 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] Begin getAll
+2025-08-10 20:55:56,913 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] End getAll
+2025-08-10 20:56:02,852 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] Begin getAll
+2025-08-10 20:56:02,863 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] End getAll
+2025-08-10 20:56:14,535 INFO o.s.m.c.PublicationController [http-nio-8080-exec-7] Begin deletePublication
+2025-08-10 20:56:14,680 INFO o.s.m.c.PublicationController [http-nio-8080-exec-7] End deletePublication
+2025-08-10 20:56:24,669 INFO o.s.m.c.PublicationController [http-nio-8080-exec-8] Begin getAll
+2025-08-10 20:56:24,679 INFO o.s.m.c.PublicationController [http-nio-8080-exec-8] End getAll
+2025-08-10 20:59:35,180 INFO o.s.m.c.UserController [http-nio-8080-exec-3] BEGIN login
+2025-08-10 20:59:35,184 INFO o.s.m.c.UserController [http-nio-8080-exec-3] END login - success
+2025-08-10 20:59:35,380 INFO o.s.m.c.PublicationController [http-nio-8080-exec-10] Begin getAll
+2025-08-10 20:59:35,389 INFO o.s.m.c.PublicationController [http-nio-8080-exec-10] End getAll
+2025-08-10 20:59:46,024 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] Begin getAll
+2025-08-10 20:59:46,029 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] End getAll
+2025-08-10 20:59:54,253 INFO o.s.m.c.PublicationController [http-nio-8080-exec-4] Begin getAll
+2025-08-10 20:59:54,262 INFO o.s.m.c.PublicationController [http-nio-8080-exec-4] End getAll
+2025-08-10 21:05:41,481 INFO o.s.m.c.UserController [http-nio-8080-exec-5] BEGIN login
+2025-08-10 21:05:41,488 INFO o.s.m.c.UserController [http-nio-8080-exec-5] END login - success
+2025-08-10 21:05:41,650 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] Begin getAll
+2025-08-10 21:05:41,656 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] End getAll
+2025-08-10 21:05:53,402 INFO o.s.m.c.PublicationController [http-nio-8080-exec-7] Begin getAll
+2025-08-10 21:05:53,408 INFO o.s.m.c.PublicationController [http-nio-8080-exec-7] End getAll
+2025-08-10 21:07:21,028 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] Begin getAll
+2025-08-10 21:07:21,033 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] End getAll
+2025-08-10 21:07:47,705 INFO o.s.m.c.PublicationController [http-nio-8080-exec-3] Begin getAll
+2025-08-10 21:07:47,719 INFO o.s.m.c.PublicationController [http-nio-8080-exec-3] End getAll
+2025-08-10 21:07:51,875 INFO o.s.m.c.PublicationController [http-nio-8080-exec-10] Begin getAll
+2025-08-10 21:07:51,888 INFO o.s.m.c.PublicationController [http-nio-8080-exec-10] End getAll
+2025-08-10 21:11:55,301 INFO o.s.m.c.UserController [http-nio-8080-exec-4] BEGIN login
+2025-08-10 21:11:55,308 INFO o.s.m.c.UserController [http-nio-8080-exec-4] END login - success
+2025-08-10 21:11:55,471 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] Begin getAll
+2025-08-10 21:11:55,477 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] End getAll
+2025-08-10 21:11:59,041 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] Begin getAll
+2025-08-10 21:11:59,052 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] End getAll
+2025-08-10 21:19:16,622 INFO o.s.m.c.UserController [http-nio-8080-exec-7] BEGIN login
+2025-08-10 21:19:16,625 INFO o.s.m.c.UserController [http-nio-8080-exec-7] END login - success
+2025-08-10 21:19:16,750 INFO o.s.m.c.PublicationController [http-nio-8080-exec-8] Begin getAll
+2025-08-10 21:19:16,754 INFO o.s.m.c.PublicationController [http-nio-8080-exec-8] End getAll
+2025-08-10 21:19:31,573 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] Begin getAll
+2025-08-10 21:19:31,577 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] End getAll
+2025-08-10 21:19:38,275 INFO o.s.m.c.PublicationController [http-nio-8080-exec-3] Begin getAll
+2025-08-10 21:19:38,277 INFO o.s.m.c.PublicationController [http-nio-8080-exec-3] End getAll
+2025-08-10 21:19:42,783 INFO o.s.m.c.PublicationController [http-nio-8080-exec-10] Begin getAll
+2025-08-10 21:19:42,787 INFO o.s.m.c.PublicationController [http-nio-8080-exec-10] End getAll
+2025-08-10 21:19:48,391 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] Begin getAll
+2025-08-10 21:19:48,398 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] End getAll
+2025-08-10 21:19:49,873 INFO o.s.m.c.PublicationController [http-nio-8080-exec-4] Begin getAll
+2025-08-10 21:19:49,878 INFO o.s.m.c.PublicationController [http-nio-8080-exec-4] End getAll
+2025-08-10 21:19:53,028 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] Begin getAll
+2025-08-10 21:19:53,032 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] End getAll
+2025-08-10 21:19:54,854 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] Begin getAll
+2025-08-10 21:19:54,856 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] End getAll
+2025-08-10 21:20:05,359 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] Begin getAll
+2025-08-10 21:20:05,363 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] End getAll
+2025-08-10 21:20:59,454 INFO o.s.m.c.UserController [http-nio-8080-exec-8] BEGIN login
+2025-08-10 21:20:59,457 INFO o.s.m.c.UserController [http-nio-8080-exec-8] END login - success
+2025-08-10 21:20:59,500 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] Begin getAll
+2025-08-10 21:20:59,503 INFO o.s.m.c.PublicationController [http-nio-8080-exec-9] End getAll
+2025-08-10 21:21:27,833 INFO o.s.m.c.PublicationController [http-nio-8080-exec-3] Begin getAll
+2025-08-10 21:21:27,838 INFO o.s.m.c.PublicationController [http-nio-8080-exec-3] End getAll
+2025-08-10 21:21:31,822 INFO o.s.m.c.PublicationController [http-nio-8080-exec-10] Begin getAll
+2025-08-10 21:21:31,835 INFO o.s.m.c.PublicationController [http-nio-8080-exec-10] End getAll
+2025-08-10 21:29:17,337 INFO o.s.m.c.PublicationController [http-nio-8080-exec-4] Begin getAll
+2025-08-10 21:29:17,341 INFO o.s.m.c.PublicationController [http-nio-8080-exec-4] End getAll
+2025-08-10 21:29:23,089 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] Begin getAll
+2025-08-10 21:29:23,094 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] End getAll
+2025-08-10 21:29:26,714 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] Begin getAll
+2025-08-10 21:29:26,718 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] End getAll
+2025-08-10 21:29:33,680 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] Begin getAll
+2025-08-10 21:29:33,685 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] End getAll
+2025-08-10 21:29:37,269 INFO o.s.m.c.PublicationController [http-nio-8080-exec-7] Begin getAll
+2025-08-10 21:29:37,275 INFO o.s.m.c.PublicationController [http-nio-8080-exec-7] End getAll
+2025-08-10 21:30:08,105 INFO o.s.m.c.PublicationController [http-nio-8080-exec-8] Begin getAll
+2025-08-10 21:30:08,109 INFO o.s.m.c.PublicationController [http-nio-8080-exec-8] End getAll

@@ -64,6 +64,13 @@ public class PublicationController {
         logger.info("End deletePublication");
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("/users/{userId}/publications")
+    public ResponseEntity<List<PublicationOutDto>> getUserPublications(@PathVariable long userId) {
+        logger.info("Begin getUserPublications by user " + userId);
+        List<PublicationOutDto> publications = publicationService.findByUser(userId);
+        logger.info("End getUserPublications by user " + userId);
+        return new ResponseEntity<>(publications, HttpStatus.OK);
+    }
 
     @ExceptionHandler
     public ResponseEntity<Void> handlePublicationNotFoundException(PublicationNotFoundException e) {

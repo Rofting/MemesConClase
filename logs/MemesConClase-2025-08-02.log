@@ -1,0 +1,75 @@
+2025-08-02 18:26:59,567 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.2.Final
+2025-08-02 18:26:59,628 INFO o.s.b.StartupInfoLogger [main] Starting MemesConClaseApplication using Java 21.0.4 with PID 21176 (C:\Users\josem\IdeaProjects\MemesConClase\target\classes started by josem in C:\Users\josem\IdeaProjects\MemesConClase)
+2025-08-02 18:26:59,629 INFO o.s.b.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2025-08-02 18:27:00,131 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-08-02 18:27:00,177 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 39 ms. Found 5 JPA repository interfaces.
+2025-08-02 18:27:00,565 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port 8080 (http)
+2025-08-02 18:27:00,576 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2025-08-02 18:27:00,579 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2025-08-02 18:27:00,579 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-08-02 18:27:00,633 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2025-08-02 18:27:00,634 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 976 ms
+2025-08-02 18:27:00,747 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-08-02 18:27:00,805 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.6.4.Final
+2025-08-02 18:27:00,833 INFO o.h.c.i.RegionFactoryInitiator [main] HHH000026: Second-level cache disabled
+2025-08-02 18:27:01,030 INFO o.s.o.j.p.SpringPersistenceUnitInfo [main] No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-08-02 18:27:01,054 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2025-08-02 18:27:01,220 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./data/MemesConClase.db user=SA
+2025-08-02 18:27:01,221 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2025-08-02 18:27:01,242 WARN o.h.e.j.d.i.DialectFactoryImpl [main] HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-08-02 18:27:01,255 INFO o.h.e.j.e.i.JdbcEnvironmentInitiator [main] HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-08-02 18:27:01,906 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-08-02 18:27:01,947 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-08-02 18:27:02,406 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-08-02 18:27:02,573 INFO o.s.b.a.h.H2ConsoleAutoConfiguration$H2ConsoleLogger [main] H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./data/MemesConClase.db'
+2025-08-02 18:27:02,606 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2025-08-02 18:27:02,626 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port 8080 (http) with context path '/'
+2025-08-02 18:27:02,630 INFO o.s.b.StartupInfoLogger [main] Started MemesConClaseApplication in 3.515 seconds (process running for 3.759)
+2025-08-02 19:13:46,754 INFO o.a.j.l.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-08-02 19:13:46,764 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2025-08-02 19:13:46,796 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 27 ms
+2025-08-02 19:13:47,006 INFO o.s.m.c.UserController [http-nio-8080-exec-1] BEGIN login
+2025-08-02 19:13:47,303 INFO o.s.m.c.UserController [http-nio-8080-exec-1] END login - success
+2025-08-02 19:13:47,424 INFO o.s.m.c.PublicationController [http-nio-8080-exec-3] Begin getAll
+2025-08-02 19:13:47,477 INFO o.s.m.c.PublicationController [http-nio-8080-exec-3] End getAll
+2025-08-02 19:14:05,630 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] Begin getAll
+2025-08-02 19:14:05,650 INFO o.s.m.c.PublicationController [http-nio-8080-exec-2] End getAll
+2025-08-02 19:14:13,592 INFO o.s.m.c.UserController [http-nio-8080-exec-4] BEGIN getUser
+2025-08-02 19:14:13,596 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] Begin getUserPublications by user 1
+2025-08-02 19:14:13,613 INFO o.s.m.c.UserController [http-nio-8080-exec-4] END getUser
+2025-08-02 19:14:13,619 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] End getUserPublications by user 1
+2025-08-02 19:14:23,540 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] Begin getAll
+2025-08-02 19:14:23,544 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] End getAll
+2025-08-02 19:14:24,696 INFO o.s.m.c.PublicationController [http-nio-8080-exec-7] Begin getAll
+2025-08-02 19:14:24,699 INFO o.s.m.c.PublicationController [http-nio-8080-exec-7] End getAll
+2025-08-02 19:14:31,299 INFO o.s.m.c.PublicationController [http-nio-8080-exec-8] Begin getUserPublications by user 1
+2025-08-02 19:14:31,299 INFO o.s.m.c.UserController [http-nio-8080-exec-9] BEGIN getUser
+2025-08-02 19:14:31,303 INFO o.s.m.c.UserController [http-nio-8080-exec-9] END getUser
+2025-08-02 19:14:31,307 INFO o.s.m.c.PublicationController [http-nio-8080-exec-8] End getUserPublications by user 1
+2025-08-02 19:14:38,115 INFO o.s.m.c.PublicationController [http-nio-8080-exec-10] Begin getAll
+2025-08-02 19:14:38,123 INFO o.s.m.c.PublicationController [http-nio-8080-exec-10] End getAll
+2025-08-02 20:40:53,700 WARN c.z.h.p.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m20s403ms587µs).
+2025-08-02 21:05:05,991 WARN c.z.h.p.HikariPool$HouseKeeper [HikariPool-1 housekeeper] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=10m12s49ms272µs500ns).
+2025-08-02 21:24:06,898 INFO o.s.m.c.UserController [http-nio-8080-exec-2] BEGIN login
+2025-08-02 21:24:06,918 INFO o.s.m.c.UserController [http-nio-8080-exec-2] END login - success
+2025-08-02 21:24:07,000 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] Begin getAll
+2025-08-02 21:24:07,006 INFO o.s.m.c.PublicationController [http-nio-8080-exec-5] End getAll
+2025-08-02 21:24:29,127 INFO o.s.m.c.PublicationController [http-nio-8080-exec-4] Begin getAll
+2025-08-02 21:24:29,130 INFO o.s.m.c.PublicationController [http-nio-8080-exec-4] End getAll
+2025-08-02 21:24:33,962 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] Begin getAll
+2025-08-02 21:24:33,965 INFO o.s.m.c.PublicationController [http-nio-8080-exec-6] End getAll
+2025-08-02 21:24:35,978 INFO o.s.m.c.PublicationController [http-nio-8080-exec-7] Begin getAll
+2025-08-02 21:24:35,980 INFO o.s.m.c.PublicationController [http-nio-8080-exec-7] End getAll
+2025-08-02 21:27:46,765 INFO o.s.m.c.UserController [http-nio-8080-exec-8] BEGIN getUser
+2025-08-02 21:27:46,766 INFO o.s.m.c.PublicationController [http-nio-8080-exec-10] Begin getUserPublications by user 1
+2025-08-02 21:27:46,767 INFO o.s.m.c.UserController [http-nio-8080-exec-8] END getUser
+2025-08-02 21:27:46,770 INFO o.s.m.c.PublicationController [http-nio-8080-exec-10] End getUserPublications by user 1
+2025-08-02 21:27:49,402 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] Begin getAll
+2025-08-02 21:27:49,405 INFO o.s.m.c.PublicationController [http-nio-8080-exec-1] End getAll
