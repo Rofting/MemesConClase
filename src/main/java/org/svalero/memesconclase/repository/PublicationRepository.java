@@ -10,5 +10,5 @@ public interface PublicationRepository extends CrudRepository<Publication, Long>
     List<Publication> findByPrivacy(String privacy);
     List<Publication> findByTypeContent(String typeContent);
     List<Publication> findByTypeContentAndPrivacy(String typeContent, String privacy);
-
+    List<Publication> findByUser_Id(long id);
 }

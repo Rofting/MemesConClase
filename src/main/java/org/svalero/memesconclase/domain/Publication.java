@@ -35,6 +35,13 @@ public class Publication {
     @Column(nullable = false)
     private Privacy privacy = Privacy.PUBLIC;
 
+    // ——— NUEVOS CAMPOS ———
+    @Column(nullable = false)
+    private double latitude;
+
+    @Column(nullable = false)
+    private double longitude;
+
     public enum ContentType {
         IMAGE, VIDEO, TEXT
     }
