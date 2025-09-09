@@ -1,0 +1,28 @@
+services:
+  app:
+    build: .
+    container_name: memes-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://db:3306/memesdb
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_JPA_DATABASE-PLATFORM=org.hibernate.dialect.MariaDBDialect
+
+  db:
+    image: mariadb:10.11
+    container_name: memes-mariadb
+    ports:
+      - "3306:3306"
+    environment:
+
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=memesdb
+    volumes:
+      - mariadb-data:/var/lib/mysql
+
+volumes:
+  mariadb-data:

@@ -8,8 +8,12 @@ import java.util.List;
 public interface ReactionRepository extends CrudRepository<Reaction, Long> {
 
     List<Reaction> findAll();
-    List<Reaction> findByUserId(Long userId);
-    List<Reaction> findByPublicationId(Long publicationId);
-    List<Reaction> findByType(String type);
-    List<Reaction> findByTypeAndPublicationId(String type, Long publicationId);
+
+    List<Reaction> findByUser_Id(Long userId);
+
+    List<Reaction> findByPublication_Id(Long publicationId);
+
+    List<Reaction> findByType(Reaction.ReactionType type);
+
+    List<Reaction> findByTypeAndPublication_Id(Reaction.ReactionType type, Long publicationId);
 }

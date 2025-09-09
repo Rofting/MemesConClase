@@ -7,11 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.svalero.memesconclase.domain.Reaction;
 import org.svalero.memesconclase.domain.dto.ReactionInDto;
 import org.svalero.memesconclase.domain.dto.ReactionOutDto;
-import org.svalero.memesconclase.domain.dto.UserInDto;
-import org.svalero.memesconclase.domain.dto.UserOutDto;
+import org.svalero.memesconclase.exception.PublicationNotFoundException;
 import org.svalero.memesconclase.exception.ReactionNotFoundException;
 import org.svalero.memesconclase.exception.UserNotFoundException;
 import org.svalero.memesconclase.service.ReactionService;
@@ -26,8 +24,8 @@ public class ReactionController {
     private final Logger logger = LoggerFactory.getLogger(ReactionController.class);
 
     @GetMapping("/reactions")
-    public ResponseEntity<List<ReactionOutDto>> getAll(@RequestParam(value = "type", defaultValue = "") String type,
-                                                       @RequestParam(value = "publicationId", defaultValue = "") Long publicationId) {
+    public ResponseEntity<List<ReactionOutDto>> getAll(@RequestParam(value = "type", required = false) String type,
+                                                       @RequestParam(value = "publicationId", required = false) Long publicationId) {
         logger.info("Begin getAll reactions");
         List<ReactionOutDto> reactions = reactionService.getAll(type, publicationId);
         logger.info("End getAll reactions");
@@ -35,17 +33,18 @@ public class ReactionController {
     }
 
     @GetMapping("/reactions/{reactionId}")
-        public ResponseEntity<Reaction> getById(@PathVariable long reactionId) throws ReactionNotFoundException {
+    public ResponseEntity<ReactionOutDto> getById(@PathVariable long reactionId) throws ReactionNotFoundException {
         logger.info("Begin getById reaction");
-        Reaction reaction = reactionService.get(reactionId);
+        ReactionOutDto reaction = reactionService.get(reactionId);
         logger.info("End getById reaction");
         return new ResponseEntity<>(reaction, HttpStatus.OK);
     }
 
     @PostMapping("/reactions")
-    public ResponseEntity<ReactionOutDto> addReaction(@Valid @RequestBody ReactionInDto reactionInDto) throws ReactionNotFoundException {
+    public ResponseEntity<ReactionOutDto> addReaction(@Valid @RequestBody ReactionInDto reactionInDto) throws UserNotFoundException, PublicationNotFoundException {
         logger.info("Begin add reaction");
         ReactionOutDto addReaction = reactionService.add(reactionInDto);
+        logger.info("End add reaction");
         return new ResponseEntity<>(addReaction, HttpStatus.CREATED);
     }
 
@@ -64,9 +63,21 @@ public class ReactionController {
         logger.info("End delete reaction");
         return ResponseEntity.noContent().build();
     }
-
-    @ExceptionHandler
+    @ExceptionHandler(ReactionNotFoundException.class)
     public ResponseEntity<Void> handleNotFoundException(ReactionNotFoundException e) {
+        logger.error("Error: " + e.getMessage());
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Void> handleUserNotFoundException(UserNotFoundException unfe) {
+        logger.error("Error al procesar reacción: " + unfe.getMessage());
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(PublicationNotFoundException.class)
+    public ResponseEntity<Void> handlePublicationNotFoundException(PublicationNotFoundException pnfe) {
+        logger.error("Error al procesar reacción: " + pnfe.getMessage());
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

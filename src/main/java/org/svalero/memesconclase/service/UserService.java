@@ -22,27 +22,21 @@ public class UserService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<UserOutDto> getAll(String name, String email) {
+    public List<UserOutDto> getAll(String searchTerm) {
         List<User> userList;
 
-        if (name.isEmpty() && email.isEmpty()) {
+        if (searchTerm == null || searchTerm.isEmpty()) {
             userList = userRepository.findAll();
-        } else if (name.isEmpty()) {
-            userList = userRepository.findByEmail(email)
-                    .map(List::of)
-                    .orElse(List.of());
-        } else if (email.isEmpty()) {
-            userList = userRepository.findByName(name);
         } else {
-            userList = userRepository.findByNameAndEmail(name, email);
+            userList = userRepository.findByNameOrEmail(searchTerm);
         }
 
         return modelMapper.map(userList, new TypeToken<List<UserOutDto>>() {}.getType());
     }
 
-
-    public User get(long userId) throws UserNotFoundException {
-        return userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+    public UserOutDto get(long userId) throws UserNotFoundException {
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        return modelMapper.map(user, UserOutDto.class);
     }
 
     public UserOutDto modify (long userId, UserInDto userInDto) throws UserNotFoundException {

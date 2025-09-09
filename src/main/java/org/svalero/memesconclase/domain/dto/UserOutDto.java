@@ -22,7 +22,6 @@ public class UserOutDto {
     private LocalDateTime dateRecord = LocalDateTime.now();
     private String sex;
 
-    // Constructor personalizado que convierte un User en un UserOutDto
     public UserOutDto(User user) {
         this.id = user.getId();
         this.name = user.getName();

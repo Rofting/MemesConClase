@@ -10,34 +10,29 @@ import org.springframework.web.bind.annotation.*;
 import org.svalero.memesconclase.domain.dto.UserInDto;
 import org.svalero.memesconclase.domain.dto.UserOutDto;
 import org.svalero.memesconclase.exception.UserNotFoundException;
-import org.svalero.memesconclase.domain.User;
 import org.svalero.memesconclase.service.UserService;
 import org.svalero.memesconclase.domain.dto.LoginRequest;
 
-
 import java.util.List;
 
-
 @RestController
-
 public class UserController {
     @Autowired
     private UserService userService;
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @GetMapping("/users")
-    public ResponseEntity<List<UserOutDto>> getAll(@RequestParam(value = "name",defaultValue = "") String name,
-                                                   @RequestParam(value = "email", defaultValue = "") String email) {
+    public ResponseEntity<List<UserOutDto>> getAll(@RequestParam(name = "search", required = false) String searchTerm) {
         logger.info("BEGIN getAll");
-        List<UserOutDto> users = userService.getAll(name, email);
+        List<UserOutDto> users = userService.getAll(searchTerm);
         logger.info("END getAll");
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/users/{userId}")
-    public ResponseEntity<User> getUserById(@PathVariable long userId) throws UserNotFoundException {
+    public ResponseEntity<UserOutDto> getUserById(@PathVariable long userId) throws UserNotFoundException {
         logger.info("BEGIN getUser");
-        User user = userService.get(userId);
+        UserOutDto user = userService.get(userId);
         logger.info("END getUser");
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -51,7 +46,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<UserOutDto> addUser(@Valid @RequestBody UserInDto userInDto) throws UserNotFoundException {
+    public ResponseEntity<UserOutDto> addUser(@Valid @RequestBody UserInDto userInDto) {
         logger.info("BEGIN addUser");
         UserOutDto addUser = userService.add(userInDto);
         logger.info("END addUser");
@@ -69,8 +64,6 @@ public class UserController {
     @PostMapping("/users/login")
     public ResponseEntity<UserOutDto> login(@RequestBody LoginRequest loginRequest) {
         logger.info("BEGIN login");
-
-        // Llamamos al servicio para validar el usuario
         UserOutDto user = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
 
         if (user != null) {
@@ -82,8 +75,7 @@ public class UserController {
         }
     }
 
-
-    @ExceptionHandler
+    @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<Void> handleUserNotFoundException(UserNotFoundException exception) {
         logger.error(exception.getMessage(),exception);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

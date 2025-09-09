@@ -9,6 +9,6 @@ public interface CommentRepository extends CrudRepository<Comment, Long> {
 
     List<Comment> findAll();
     List<Comment> findByContentContaining(String content);
-    List<Comment> findByPublicationId(Long publicationId);
-    List<Comment> findByContentContainingAndPublicationId(String content, Long publicationId);
+    List<Comment> findByPublication_Id(Long publicationId);
+    List<Comment> findByContentContainingAndPublication_Id(String content, Long publicationId);
 }

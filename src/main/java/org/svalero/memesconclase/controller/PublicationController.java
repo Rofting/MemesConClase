@@ -22,9 +22,7 @@ public class PublicationController {
     private final Logger logger = LoggerFactory.getLogger(PublicationController.class);
 
     @GetMapping("/publications")
-    public ResponseEntity<List<PublicationOutDto>> getAll(
-            @RequestParam(value = "typeContent", defaultValue = "") String typeContent,
-            @RequestParam(value = "privacy", defaultValue = "") String privacy) {
+    public ResponseEntity<List<PublicationOutDto>> getAll(@RequestParam(name = "typeContent", required = false) String typeContent, @RequestParam(name = "privacy", required = false) String privacy) {
         logger.info("Begin getAll");
         List<PublicationOutDto> publications = publicationService.getAll(typeContent, privacy);
         logger.info("End getAll");

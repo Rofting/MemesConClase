@@ -26,20 +26,30 @@ public class PublicationService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<PublicationOutDto> getAll(String typeContent, String privacy) {
-        List<Publication> publicationList;
-
-        if (typeContent.isEmpty() && privacy.isEmpty()) {
-            publicationList = publicationRepository.findAll();
-        } else if (typeContent.isEmpty()) {
-            publicationList = publicationRepository.findByPrivacy(privacy);
-        } else if (privacy.isEmpty()) {
-            publicationList = publicationRepository.findByTypeContent(typeContent);
-        } else {
-            publicationList = publicationRepository.findByTypeContentAndPrivacy(typeContent, privacy);
+    public List<PublicationOutDto> getAll(String typeContentStr, String privacyStr) {
+        Publication.ContentType typeContent = null;
+        if (typeContentStr != null && !typeContentStr.isEmpty()) {
+            typeContent = Publication.ContentType.valueOf(typeContentStr.toUpperCase());
         }
 
-        return modelMapper.map(publicationList, new TypeToken<List<PublicationOutDto>>() {}.getType());
+        Publication.Privacy privacy = null;
+        if (privacyStr != null && !privacyStr.isEmpty()) {
+            privacy = Publication.Privacy.valueOf(privacyStr.toUpperCase());
+        }
+
+        List<Publication> publications;
+
+        if (typeContent != null && privacy != null) {
+            publications = publicationRepository.findByTypeContentAndPrivacy(typeContent, privacy);
+        } else if (typeContent != null) {
+            publications = publicationRepository.findByTypeContent(typeContent);
+        } else if (privacy != null) {
+            publications = publicationRepository.findByPrivacy(privacy);
+        } else {
+            publications = publicationRepository.findAll();
+        }
+
+        return modelMapper.map(publications, new TypeToken<List<PublicationOutDto>>() {}.getType());
     }
 
     public PublicationOutDto get(long publicationId) throws PublicationNotFoundException {
@@ -49,18 +59,14 @@ public class PublicationService {
     }
 
     public PublicationOutDto add(PublicationInDto publicationInDto) {
-        // 1. Convertimos el DTO a la entidad. Gracias a la configuración, el ID se ignorará.
         Publication newPublication = modelMapper.map(publicationInDto, Publication.class);
 
-        // 2. Aún necesitamos buscar y asignar el objeto User manualmente.
         User user = userRepository.findById(publicationInDto.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("El usuario no existe"));
         newPublication.setUser(user);
 
-        // 3. Guardamos la nueva publicación.
         Publication savedPublication = publicationRepository.save(newPublication);
 
-        // 4. Devolvemos el DTO de salida.
         return modelMapper.map(savedPublication, PublicationOutDto.class);
     }
 
