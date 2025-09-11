@@ -40,6 +40,12 @@ public class User {
     @Column
     private String sex;
 
+    @Column(nullable = false)
+    private int loginCount = 0;
+
+    @Column(nullable = false)
+    private double reputation = 0.0;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Publication> publications;

@@ -9,6 +9,7 @@ import org.svalero.memesconclase.domain.Publication;
 import org.svalero.memesconclase.domain.User;
 import org.svalero.memesconclase.domain.dto.CommentInDto;
 import org.svalero.memesconclase.domain.dto.CommentOutDto;
+import org.svalero.memesconclase.domain.dto.CommentPatchDto;
 import org.svalero.memesconclase.exception.CommentNotFoundException;
 import org.svalero.memesconclase.exception.PublicationNotFoundException;
 import org.svalero.memesconclase.exception.UserNotFoundException;
@@ -16,6 +17,7 @@ import org.svalero.memesconclase.repository.CommentRepository;
 import org.svalero.memesconclase.repository.PublicationRepository;
 import org.svalero.memesconclase.repository.UserRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -43,6 +45,13 @@ public class CommentService {
         }
         return modelMapper.map(commentList, new TypeToken<List<CommentOutDto>>() {}.getType());
     }
+
+    public List<CommentOutDto> getAllWithFilters(String content, Long publicationId, Long userId) {
+        String safeContent = (content == null || content.isBlank()) ? null : content;
+        List<Comment> comments = commentRepository.findByOptionalCriteria(safeContent, publicationId, userId);
+        return modelMapper.map(comments, new TypeToken<List<CommentOutDto>>() {}.getType());
+    }
+
 
     public CommentOutDto get(long commentId) throws CommentNotFoundException {
         Comment comment = commentRepository.findById(commentId)
@@ -75,4 +84,28 @@ public class CommentService {
         commentRepository.save(comment);
         return modelMapper.map(comment, CommentOutDto.class);
     }
+
+    public CommentOutDto patch(long commentId, CommentPatchDto patch) throws CommentNotFoundException {
+        Comment comment = commentRepository.findById(commentId).orElseThrow(CommentNotFoundException::new);
+
+        boolean contentChanged = false;
+        if (patch.getContent() != null) {
+            comment.setContent(patch.getContent());
+            contentChanged = true;
+        }
+        if (patch.getLikes() != null) {
+            comment.setLikes(patch.getLikes());
+        }
+        if (patch.getSentimentScore() != null) {
+            comment.setSentimentScore(patch.getSentimentScore().floatValue());
+        }
+        if (contentChanged) {
+            comment.setEdited(true);
+            comment.setUpdatedAt(LocalDateTime.now());
+        }
+
+        commentRepository.save(comment);
+        return modelMapper.map(comment, CommentOutDto.class);
+    }
 }
+

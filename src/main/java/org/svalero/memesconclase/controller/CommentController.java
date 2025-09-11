@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.svalero.memesconclase.domain.dto.CommentInDto;
 import org.svalero.memesconclase.domain.dto.CommentOutDto;
+import org.svalero.memesconclase.domain.dto.CommentPatchDto;
 import org.svalero.memesconclase.exception.CommentNotFoundException;
 import org.svalero.memesconclase.exception.PublicationNotFoundException;
 import org.svalero.memesconclase.exception.UserNotFoundException;
@@ -25,9 +26,10 @@ public class CommentController {
 
     @GetMapping("/comments")
     public ResponseEntity<List<CommentOutDto>> getAll(@RequestParam(value = "content", required = false) String content,
-                                                      @RequestParam(value = "publicationId", required = false) Long publicationId) {
+                                                      @RequestParam(value = "publicationId", required = false) Long publicationId,
+                                                      @RequestParam(value = "userId", required = false) Long userId) {
         logger.info("Begin getAll comments");
-        List<CommentOutDto> comments = commentService.getAll(content, publicationId);
+        List<CommentOutDto> comments = commentService.getAllWithFilters(content, publicationId, userId);
         logger.info("End getAll comments");
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
@@ -49,11 +51,19 @@ public class CommentController {
     }
 
     @PutMapping("/comments/{commentId}")
-    public ResponseEntity<CommentOutDto>modifyComment(@PathVariable  long commentId, @Valid @RequestBody CommentInDto comment) throws CommentNotFoundException {
+    public ResponseEntity<CommentOutDto> modifyComment(@PathVariable  long commentId, @Valid @RequestBody CommentInDto comment) throws CommentNotFoundException {
         logger.info("Begin modify");
         CommentOutDto modifyComment = commentService.modify(commentId, comment);
         logger.info("End modify");
         return new ResponseEntity<>(modifyComment, HttpStatus.OK);
+    }
+
+    @PatchMapping("/comments/{commentId}")
+    public ResponseEntity<CommentOutDto> patchComment(@PathVariable long commentId, @Valid @RequestBody CommentPatchDto patch) throws CommentNotFoundException {
+        logger.info("Begin patch");
+        CommentOutDto result = commentService.patch(commentId, patch);
+        logger.info("End patch");
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @DeleteMapping("/comments/{commentId}")

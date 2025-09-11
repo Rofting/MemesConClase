@@ -14,12 +14,10 @@ public class Friendship {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "friend_id", nullable = false)
+    @ManyToOne @JoinColumn(name = "friend_id", nullable = false)
     private User friend;
 
     @Column(nullable = false)
@@ -28,6 +26,18 @@ public class Friendship {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Status status = Status.PENDING;
+
+    @Column(nullable = false)
+    private int closenessScore = 0;
+
+    @Column(length = 255)
+    private String notes;
+
+    @Column(nullable = false)
+    private boolean favorite = false;
+
+    @Column(nullable = false)
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     public enum Status {
         PENDING, ACCEPTED, BLOCKED

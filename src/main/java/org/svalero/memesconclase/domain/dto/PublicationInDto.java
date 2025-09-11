@@ -24,7 +24,6 @@ public class PublicationInDto {
     @Pattern(regexp = "PUBLIC|PRIVATE", message = "La privacidad debe ser PUBLIC o PRIVATE.")
     private String privacy;
 
-    // ——— NUEVOS CAMPOS ———
     @NotNull(message = "La latitud es obligatoria.")
     @DecimalMin(value = "-90.0", message = "Latitud debe estar entre -90 y 90")
     @DecimalMax(value = "90.0",  message = "Latitud debe estar entre -90 y 90")

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.svalero.memesconclase.domain.dto.ReactionInDto;
 import org.svalero.memesconclase.domain.dto.ReactionOutDto;
+import org.svalero.memesconclase.domain.dto.ReactionPatchDto;
 import org.svalero.memesconclase.exception.PublicationNotFoundException;
 import org.svalero.memesconclase.exception.ReactionNotFoundException;
 import org.svalero.memesconclase.exception.UserNotFoundException;
@@ -25,9 +26,10 @@ public class ReactionController {
 
     @GetMapping("/reactions")
     public ResponseEntity<List<ReactionOutDto>> getAll(@RequestParam(value = "type", required = false) String type,
-                                                       @RequestParam(value = "publicationId", required = false) Long publicationId) {
+                                                       @RequestParam(value = "publicationId", required = false) Long publicationId,
+                                                       @RequestParam(value = "userId", required = false) Long userId) {
         logger.info("Begin getAll reactions");
-        List<ReactionOutDto> reactions = reactionService.getAll(type, publicationId);
+        List<ReactionOutDto> reactions = reactionService.getAllWithFilters(type, publicationId, userId);
         logger.info("End getAll reactions");
         return new ResponseEntity<>(reactions, HttpStatus.OK);
     }
@@ -56,6 +58,14 @@ public class ReactionController {
         return new ResponseEntity<>(modifyReaction, HttpStatus.OK);
     }
 
+    @PatchMapping("/reactions/{reactionId}")
+    public ResponseEntity<ReactionOutDto> patchReaction(@PathVariable long reactionId, @Valid @RequestBody ReactionPatchDto patch) throws ReactionNotFoundException {
+        logger.info("Begin patch reaction");
+        ReactionOutDto result = reactionService.patch(reactionId, patch);
+        logger.info("End patch reaction");
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @DeleteMapping("/reactions/{reactionId}")
     public ResponseEntity<Void> delete(@PathVariable long reactionId) throws ReactionNotFoundException {
         logger.info("Begin delete reaction");
@@ -63,6 +73,7 @@ public class ReactionController {
         logger.info("End delete reaction");
         return ResponseEntity.noContent().build();
     }
+
     @ExceptionHandler(ReactionNotFoundException.class)
     public ResponseEntity<Void> handleNotFoundException(ReactionNotFoundException e) {
         logger.error("Error: " + e.getMessage());

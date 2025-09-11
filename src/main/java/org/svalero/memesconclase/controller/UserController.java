@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.svalero.memesconclase.domain.dto.UserInDto;
 import org.svalero.memesconclase.domain.dto.UserOutDto;
+import org.svalero.memesconclase.domain.dto.UserPatchDto;
 import org.svalero.memesconclase.exception.UserNotFoundException;
 import org.svalero.memesconclase.service.UserService;
 import org.svalero.memesconclase.domain.dto.LoginRequest;
@@ -22,9 +23,11 @@ public class UserController {
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @GetMapping("/users")
-    public ResponseEntity<List<UserOutDto>> getAll(@RequestParam(name = "search", required = false) String searchTerm) {
+    public ResponseEntity<List<UserOutDto>> getAll(@RequestParam(name = "search", required = false) String searchTerm,
+                                                   @RequestParam(name = "active", required = false) Boolean active,
+                                                   @RequestParam(name = "sex", required = false) String sex) {
         logger.info("BEGIN getAll");
-        List<UserOutDto> users = userService.getAll(searchTerm);
+        List<UserOutDto> users = userService.getAllWithFilters(searchTerm, active, sex);
         logger.info("END getAll");
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
@@ -43,6 +46,14 @@ public class UserController {
         UserOutDto modifyUser = userService.modify(userId,user);
         logger.info("END modifyUser");
         return new ResponseEntity<>(modifyUser, HttpStatus.OK);
+    }
+
+    @PatchMapping("/users/{userId}")
+    public ResponseEntity<UserOutDto> patchUser(@PathVariable long userId, @Valid @RequestBody UserPatchDto userPatch) throws UserNotFoundException {
+        logger.info("BEGIN patchUser");
+        UserOutDto patched = userService.patch(userId, userPatch);
+        logger.info("END patchUser");
+        return new ResponseEntity<>(patched, HttpStatus.OK);
     }
 
     @PostMapping("/users")

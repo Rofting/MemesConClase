@@ -11,4 +11,9 @@ public class FriendshipOutDto {
     private UserOutDto friend;
     private String status;
     private LocalDateTime createdAt;
+
+    private int closenessScore;
+    private String notes;
+    private boolean favorite;
+    private LocalDateTime updatedAt;
 }

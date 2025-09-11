@@ -8,6 +8,7 @@ import org.svalero.memesconclase.domain.Friendship;
 import org.svalero.memesconclase.domain.User;
 import org.svalero.memesconclase.domain.dto.FriendshipInDto;
 import org.svalero.memesconclase.domain.dto.FriendshipOutDto;
+import org.svalero.memesconclase.domain.dto.FriendshipPatchDto;
 import org.svalero.memesconclase.domain.dto.UserOutDto;
 import org.svalero.memesconclase.exception.FriendshipNotFoundException;
 import org.svalero.memesconclase.exception.UserNotFoundException;
@@ -63,9 +64,7 @@ public class FriendshipService {
         Friendship newFriendship = new Friendship();
         newFriendship.setUser(user);
         newFriendship.setFriend(friend);
-
         Friendship saved = friendshipRepository.save(newFriendship);
-        // El DTO ahora incluye user y friend completos
         modelMapper.typeMap(User.class, UserOutDto.class);
         return modelMapper.map(saved, FriendshipOutDto.class);
     }
@@ -87,5 +86,30 @@ public class FriendshipService {
         modelMapper.typeMap(User.class, UserOutDto.class);
         return modelMapper.map(saved, FriendshipOutDto.class);
     }
+
+    public FriendshipOutDto patch(long friendshipId, FriendshipPatchDto patch) throws FriendshipNotFoundException {
+        Friendship friendship = friendshipRepository.findById(friendshipId)
+                .orElseThrow(FriendshipNotFoundException::new);
+
+        if (patch.getStatus() != null) {
+            friendship.setStatus(Friendship.Status.valueOf(patch.getStatus().toUpperCase()));
+        }
+        if (patch.getNotes() != null) {
+            friendship.setNotes(patch.getNotes());
+        }
+        if (patch.getFavorite() != null) {
+            friendship.setFavorite(patch.getFavorite());
+        }
+        if (patch.getClosenessScore() != null) {
+            friendship.setClosenessScore(patch.getClosenessScore());
+        }
+        friendship.setUpdatedAt(LocalDateTime.now());
+
+        Friendship saved = friendshipRepository.save(friendship);
+        modelMapper.typeMap(User.class, UserOutDto.class);
+        return modelMapper.map(saved, FriendshipOutDto.class);
+    }
 }
+
+
 

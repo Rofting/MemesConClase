@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import org.svalero.memesconclase.domain.Friendship;
 import org.svalero.memesconclase.domain.dto.FriendshipInDto;
 import org.svalero.memesconclase.domain.dto.FriendshipOutDto;
+import org.svalero.memesconclase.domain.dto.FriendshipPatchDto;
 import org.svalero.memesconclase.exception.FriendshipNotFoundException;
-import org.svalero.memesconclase.exception.UserNotFoundException; // <-- Asegúrate de tener este import
+import org.svalero.memesconclase.exception.UserNotFoundException;
 import org.svalero.memesconclase.service.FriendshipService;
 
 import java.util.List;
@@ -58,6 +59,14 @@ public class FriendshipController {
         FriendshipOutDto modifyFriendship = friendshipService.modify(friendshipId, friendship);
         logger.info("End Modify friendship");
         return new ResponseEntity<>(modifyFriendship, HttpStatus.OK);
+    }
+
+    @PatchMapping("/friendships/{friendshipId}")
+    public ResponseEntity<FriendshipOutDto> patchFriendship(@PathVariable long friendshipId, @Valid @RequestBody FriendshipPatchDto patch) throws FriendshipNotFoundException {
+        logger.info("Begin Patch friendship");
+        FriendshipOutDto result = friendshipService.patch(friendshipId, patch);
+        logger.info("End Patch friendship");
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @DeleteMapping("/friendships/{friendshipId}")

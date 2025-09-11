@@ -9,6 +9,7 @@ import org.svalero.memesconclase.domain.Reaction;
 import org.svalero.memesconclase.domain.User;
 import org.svalero.memesconclase.domain.dto.ReactionInDto;
 import org.svalero.memesconclase.domain.dto.ReactionOutDto;
+import org.svalero.memesconclase.domain.dto.ReactionPatchDto;
 import org.svalero.memesconclase.exception.PublicationNotFoundException;
 import org.svalero.memesconclase.exception.ReactionNotFoundException;
 import org.svalero.memesconclase.exception.UserNotFoundException;
@@ -51,6 +52,15 @@ public class ReactionService {
         return modelMapper.map(reactionList, new TypeToken<List<ReactionOutDto>>() {}.getType());
     }
 
+    public List<ReactionOutDto> getAllWithFilters(String typeStr, Long publicationId, Long userId) {
+        Reaction.ReactionType type = null;
+        if (typeStr != null && !typeStr.isBlank()) {
+            type = Reaction.ReactionType.valueOf(typeStr.toUpperCase());
+        }
+        List<Reaction> reactions = reactionRepository.findByOptionalCriteria(type, publicationId, userId);
+        return modelMapper.map(reactions, new TypeToken<List<ReactionOutDto>>() {}.getType());
+    }
+
 
     public ReactionOutDto get(long reactionId) throws ReactionNotFoundException {
         Reaction reaction = reactionRepository.findById(reactionId)
@@ -62,7 +72,6 @@ public class ReactionService {
         Reaction reaction = reactionRepository.findById(reactionId)
                 .orElseThrow(() -> new ReactionNotFoundException(String.valueOf(reactionId)));
 
-        // Mapeamos solo el tipo de reacción, no el usuario ni la publicación
         Reaction.ReactionType newType = Reaction.ReactionType.valueOf(reactionInDto.getType().toUpperCase());
         reaction.setType(newType);
 
@@ -82,6 +91,27 @@ public class ReactionService {
 
         newReaction = reactionRepository.save(newReaction);
         return modelMapper.map(newReaction, ReactionOutDto.class);
+    }
+
+    public ReactionOutDto patch(long reactionId, ReactionPatchDto patch) throws ReactionNotFoundException {
+        Reaction reaction = reactionRepository.findById(reactionId)
+                .orElseThrow(() -> new ReactionNotFoundException(String.valueOf(reactionId)));
+
+        if (patch.getType() != null) {
+            reaction.setType(Reaction.ReactionType.valueOf(patch.getType().toUpperCase()));
+        }
+        if (patch.getActive() != null) {
+            reaction.setActive(patch.getActive());
+        }
+        if (patch.getWeight() != null) {
+            reaction.setWeight(patch.getWeight());
+        }
+        if (patch.getConfidence() != null) {
+            reaction.setConfidence(patch.getConfidence().floatValue());
+        }
+
+        reactionRepository.save(reaction);
+        return modelMapper.map(reaction, ReactionOutDto.class);
     }
 
     public void delete(long reactionId) throws ReactionNotFoundException {
