@@ -14,8 +14,7 @@ public class Publication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Column(nullable = false, length = 500)
@@ -35,12 +34,17 @@ public class Publication {
     @Column(nullable = false)
     private Privacy privacy = Privacy.PUBLIC;
 
-    // ——— NUEVOS CAMPOS ———
     @Column(nullable = false)
     private double latitude;
 
     @Column(nullable = false)
     private double longitude;
+
+    @Column(nullable = false)
+    private int views = 0;
+
+    @Column(nullable = false)
+    private boolean featured = false;
 
     public enum ContentType {
         IMAGE, VIDEO, TEXT

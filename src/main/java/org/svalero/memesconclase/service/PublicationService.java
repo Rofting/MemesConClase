@@ -1,75 +1,103 @@
 package org.svalero.memesconclase.service;
 
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.svalero.memesconclase.domain.Publication;
 import org.svalero.memesconclase.domain.User;
 import org.svalero.memesconclase.domain.dto.PublicationInDto;
 import org.svalero.memesconclase.domain.dto.PublicationOutDto;
+import org.svalero.memesconclase.domain.dto.PublicationPatchDto;
 import org.svalero.memesconclase.exception.PublicationNotFoundException;
-import org.svalero.memesconclase.domain.Publication;
+import org.svalero.memesconclase.exception.UserNotFoundException;
 import org.svalero.memesconclase.repository.PublicationRepository;
 import org.svalero.memesconclase.repository.UserRepository;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PublicationService {
 
-    @Autowired
-    private UserRepository userRepository;
+    @Autowired private UserRepository userRepository;
+    @Autowired private PublicationRepository publicationRepository;
+    @Autowired private ModelMapper modelMapper;
 
-    @Autowired
-    private PublicationRepository publicationRepository;
+    public List<PublicationOutDto> getAll(String typeContentStr, String privacyStr, Long userId) {
+        Publication.ContentType typeContent = null;
+        Publication.Privacy privacy = null;
 
-    @Autowired
-    private ModelMapper modelMapper;
-
-    public List<PublicationOutDto> getAll(String typeContent, String privacy) {
-        List<Publication> publicationList;
-
-        if (typeContent.isEmpty() && privacy.isEmpty()) {
-            publicationList = publicationRepository.findAll();
-        } else if (typeContent.isEmpty()) {
-            publicationList = publicationRepository.findByPrivacy(privacy);
-        } else if (privacy.isEmpty()) {
-            publicationList = publicationRepository.findByTypeContent(typeContent);
-        } else {
-            publicationList = publicationRepository.findByTypeContentAndPrivacy(typeContent, privacy);
+        if (typeContentStr != null && !typeContentStr.isBlank()) {
+            typeContent = Publication.ContentType.valueOf(typeContentStr.toUpperCase());
+        }
+        if (privacyStr != null && !privacyStr.isBlank()) {
+            privacy = Publication.Privacy.valueOf(privacyStr.toUpperCase());
         }
 
-        return modelMapper.map(publicationList, new TypeToken<List<PublicationOutDto>>() {}.getType());
+        List<Publication> publications;
+
+        if (typeContent != null && privacy != null && userId != null) {
+            publications = publicationRepository.findByTypeContentAndPrivacy(typeContent, privacy)
+                    .stream()
+                    .filter(p -> p.getUser() != null && Objects.equals(p.getUser().getId(), userId))
+                    .toList();
+        } else if (typeContent != null && privacy != null) {
+            publications = publicationRepository.findByTypeContentAndPrivacy(typeContent, privacy);
+        } else if (typeContent != null) {
+            publications = publicationRepository.findByTypeContent(typeContent);
+        } else if (privacy != null) {
+            publications = publicationRepository.findByPrivacy(privacy);
+        } else if (userId != null) {
+            publications = publicationRepository.findByUser_Id(userId);
+        } else {
+            publications = publicationRepository.findAll();
+        }
+
+        return publications.stream().map(this::toOutDto).toList();
     }
 
     public PublicationOutDto get(long publicationId) throws PublicationNotFoundException {
         Publication publication = publicationRepository.findById(publicationId)
                 .orElseThrow(PublicationNotFoundException::new);
-        return modelMapper.map(publication, PublicationOutDto.class);
+        return toOutDto(publication);
     }
 
-    public PublicationOutDto add(PublicationInDto publicationInDto) {
-        // 1. Convertimos el DTO a la entidad. Gracias a la configuración, el ID se ignorará.
-        Publication newPublication = modelMapper.map(publicationInDto, Publication.class);
+    public PublicationOutDto add(PublicationInDto in) throws UserNotFoundException {
+        User user = userRepository.findById(in.getUserId())
+                .orElseThrow(() -> new UserNotFoundException("Usuario " + in.getUserId() + " no existe"));
 
-        // 2. Aún necesitamos buscar y asignar el objeto User manualmente.
-        User user = userRepository.findById(publicationInDto.getUserId())
-                .orElseThrow(() -> new IllegalArgumentException("El usuario no existe"));
-        newPublication.setUser(user);
+        Publication p = modelMapper.map(in, Publication.class);
+        p.setUser(user); // relación
 
-        // 3. Guardamos la nueva publicación.
-        Publication savedPublication = publicationRepository.save(newPublication);
-
-        // 4. Devolvemos el DTO de salida.
-        return modelMapper.map(savedPublication, PublicationOutDto.class);
+        try {
+            Publication saved = publicationRepository.save(p);
+            return toOutDto(saved);
+        } catch (DataIntegrityViolationException dive) {
+            throw new IllegalArgumentException("Datos de publicación inválidos: " + dive.getMostSpecificCause().getMessage());
+        }
     }
 
-    public PublicationOutDto modify(long publicationId, PublicationInDto publicationInDto) throws PublicationNotFoundException {
+    public PublicationOutDto modify(long publicationId, PublicationInDto in)
+            throws PublicationNotFoundException, UserNotFoundException {
+
         Publication publication = publicationRepository.findById(publicationId)
                 .orElseThrow(PublicationNotFoundException::new);
-        modelMapper.map(publicationInDto, publication);
-        publication = publicationRepository.save(publication);
-        return modelMapper.map(publication, PublicationOutDto.class);
+
+        if (in.getUserId() != null) {
+            User user = userRepository.findById(in.getUserId())
+                    .orElseThrow(() -> new UserNotFoundException("Usuario " + in.getUserId() + " no existe"));
+            publication.setUser(user);
+        }
+
+        modelMapper.map(in, publication);
+
+        try {
+            Publication saved = publicationRepository.save(publication);
+            return toOutDto(saved);
+        } catch (DataIntegrityViolationException dive) {
+            throw new IllegalArgumentException("Datos de publicación inválidos: " + dive.getMostSpecificCause().getMessage());
+        }
     }
 
     public void delete(long publicationId) throws PublicationNotFoundException {
@@ -79,8 +107,37 @@ public class PublicationService {
     }
 
     public List<PublicationOutDto> findByUser(long userId) {
-        List<Publication> publicationList = publicationRepository.findByUser_Id(userId);
-        return modelMapper.map(publicationList, new TypeToken<List<PublicationOutDto>>() {}.getType());
+        List<Publication> list = publicationRepository.findByUser_Id(userId);
+        return list.stream().map(this::toOutDto).toList();
+    }
+
+    public PublicationOutDto partialModify(long publicationId, PublicationPatchDto patch)
+            throws PublicationNotFoundException {
+
+        Publication publication = publicationRepository.findById(publicationId)
+                .orElseThrow(PublicationNotFoundException::new);
+
+        modelMapper.map(patch, publication);
+
+        Publication saved = publicationRepository.save(publication);
+        return toOutDto(saved);
+    }
+
+    private PublicationOutDto toOutDto(Publication src) {
+        if (src == null) return null;
+        PublicationOutDto dto = new PublicationOutDto();
+        dto.setId(src.getId());
+        dto.setContent(src.getContent());
+        dto.setImageUrl(src.getImageUrl());
+        dto.setTypeContent(src.getTypeContent() != null ? src.getTypeContent().name() : null);
+        dto.setPrivacy(src.getPrivacy() != null ? src.getPrivacy().name() : null);
+        dto.setPublicationDate(src.getPublicationDate());
+        dto.setUserName(src.getUser() != null ? src.getUser().getName() : null);
+        dto.setLatitude(src.getLatitude());
+        dto.setLongitude(src.getLongitude());
+        dto.setViews(src.getViews());
+        dto.setFeatured(src.isFeatured());
+        return dto;
     }
 }
 

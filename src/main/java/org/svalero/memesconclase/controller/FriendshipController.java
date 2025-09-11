@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import org.svalero.memesconclase.domain.Friendship;
 import org.svalero.memesconclase.domain.dto.FriendshipInDto;
 import org.svalero.memesconclase.domain.dto.FriendshipOutDto;
+import org.svalero.memesconclase.domain.dto.FriendshipPatchDto;
 import org.svalero.memesconclase.exception.FriendshipNotFoundException;
+import org.svalero.memesconclase.exception.UserNotFoundException;
 import org.svalero.memesconclase.service.FriendshipService;
 
 import java.util.List;
@@ -23,10 +25,14 @@ public class FriendshipController {
     private final Logger logger = LoggerFactory.getLogger(FriendshipController.class);
 
     @GetMapping("/friendships")
-    public ResponseEntity<List<FriendshipOutDto>> getAll(@RequestParam(value = "status", defaultValue = "") String status,
-                                                         @RequestParam(value = "userId", defaultValue = "") Long userId) {
+    public ResponseEntity<List<FriendshipOutDto>> getAll(
+            @RequestParam(name = "userId", required = false) Long userId,
+            @RequestParam(name = "status", required = false) String status,
+            @RequestParam(name = "startDate", required = false) String startDate,
+            @RequestParam(name = "endDate", required = false) String endDate)
+    {
         logger.info("Begin Get all friendships");
-        List<FriendshipOutDto> friendships = friendshipService.getAll(status, userId);
+        List<FriendshipOutDto> friendships = friendshipService.getAll(userId, status, startDate, endDate);
         logger.info("End Get all friendships");
         return new ResponseEntity<>(friendships, HttpStatus.OK);
     }
@@ -40,7 +46,7 @@ public class FriendshipController {
     }
 
     @PostMapping("/friendships")
-    public ResponseEntity<FriendshipOutDto> addFriendship(@Valid @RequestBody FriendshipInDto friendshipInDto) {
+    public ResponseEntity<FriendshipOutDto> addFriendship(@Valid @RequestBody FriendshipInDto friendshipInDto) throws UserNotFoundException {
         logger.info("Begin Add friendship");
         FriendshipOutDto addFriendship = friendshipService.add(friendshipInDto);
         logger.info("End Add friendship");
@@ -48,11 +54,19 @@ public class FriendshipController {
     }
 
     @PutMapping("/friendships/{friendshipId}")
-    public ResponseEntity<FriendshipOutDto>modifyFriendship(@PathVariable long friendshipId, @Valid @RequestBody FriendshipInDto friendship) throws FriendshipNotFoundException{
+    public ResponseEntity<FriendshipOutDto> modifyFriendship(@PathVariable long friendshipId, @Valid @RequestBody FriendshipInDto friendship) throws FriendshipNotFoundException{
         logger.info("Begin Modify friendship");
         FriendshipOutDto modifyFriendship = friendshipService.modify(friendshipId, friendship);
         logger.info("End Modify friendship");
         return new ResponseEntity<>(modifyFriendship, HttpStatus.OK);
+    }
+
+    @PatchMapping("/friendships/{friendshipId}")
+    public ResponseEntity<FriendshipOutDto> patchFriendship(@PathVariable long friendshipId, @Valid @RequestBody FriendshipPatchDto patch) throws FriendshipNotFoundException {
+        logger.info("Begin Patch friendship");
+        FriendshipOutDto result = friendshipService.patch(friendshipId, patch);
+        logger.info("End Patch friendship");
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @DeleteMapping("/friendships/{friendshipId}")
@@ -63,8 +77,20 @@ public class FriendshipController {
         return ResponseEntity.noContent().build();
     }
 
-    @ExceptionHandler
+    @ExceptionHandler(FriendshipNotFoundException.class)
     public ResponseEntity<Void> handleNotFoundException(FriendshipNotFoundException e) {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Void> handleUserNotFoundException(UserNotFoundException unfe) {
+        logger.error("Error al procesar amistad: " + unfe.getMessage());
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException iae) {
+        logger.error("Error en la petición de amistad: " + iae.getMessage());
+        return new ResponseEntity<>(iae.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

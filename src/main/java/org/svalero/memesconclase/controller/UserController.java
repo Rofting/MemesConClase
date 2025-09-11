@@ -9,35 +9,33 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.svalero.memesconclase.domain.dto.UserInDto;
 import org.svalero.memesconclase.domain.dto.UserOutDto;
+import org.svalero.memesconclase.domain.dto.UserPatchDto;
 import org.svalero.memesconclase.exception.UserNotFoundException;
-import org.svalero.memesconclase.domain.User;
 import org.svalero.memesconclase.service.UserService;
 import org.svalero.memesconclase.domain.dto.LoginRequest;
 
-
 import java.util.List;
 
-
 @RestController
-
 public class UserController {
     @Autowired
     private UserService userService;
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @GetMapping("/users")
-    public ResponseEntity<List<UserOutDto>> getAll(@RequestParam(value = "name",defaultValue = "") String name,
-                                                   @RequestParam(value = "email", defaultValue = "") String email) {
+    public ResponseEntity<List<UserOutDto>> getAll(@RequestParam(name = "search", required = false) String searchTerm,
+                                                   @RequestParam(name = "active", required = false) Boolean active,
+                                                   @RequestParam(name = "sex", required = false) String sex) {
         logger.info("BEGIN getAll");
-        List<UserOutDto> users = userService.getAll(name, email);
+        List<UserOutDto> users = userService.getAllWithFilters(searchTerm, active, sex);
         logger.info("END getAll");
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/users/{userId}")
-    public ResponseEntity<User> getUserById(@PathVariable long userId) throws UserNotFoundException {
+    public ResponseEntity<UserOutDto> getUserById(@PathVariable long userId) throws UserNotFoundException {
         logger.info("BEGIN getUser");
-        User user = userService.get(userId);
+        UserOutDto user = userService.get(userId);
         logger.info("END getUser");
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -50,8 +48,16 @@ public class UserController {
         return new ResponseEntity<>(modifyUser, HttpStatus.OK);
     }
 
+    @PatchMapping("/users/{userId}")
+    public ResponseEntity<UserOutDto> patchUser(@PathVariable long userId, @Valid @RequestBody UserPatchDto userPatch) throws UserNotFoundException {
+        logger.info("BEGIN patchUser");
+        UserOutDto patched = userService.patch(userId, userPatch);
+        logger.info("END patchUser");
+        return new ResponseEntity<>(patched, HttpStatus.OK);
+    }
+
     @PostMapping("/users")
-    public ResponseEntity<UserOutDto> addUser(@Valid @RequestBody UserInDto userInDto) throws UserNotFoundException {
+    public ResponseEntity<UserOutDto> addUser(@Valid @RequestBody UserInDto userInDto) {
         logger.info("BEGIN addUser");
         UserOutDto addUser = userService.add(userInDto);
         logger.info("END addUser");
@@ -69,8 +75,6 @@ public class UserController {
     @PostMapping("/users/login")
     public ResponseEntity<UserOutDto> login(@RequestBody LoginRequest loginRequest) {
         logger.info("BEGIN login");
-
-        // Llamamos al servicio para validar el usuario
         UserOutDto user = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
 
         if (user != null) {
@@ -82,8 +86,7 @@ public class UserController {
         }
     }
 
-
-    @ExceptionHandler
+    @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<Void> handleUserNotFoundException(UserNotFoundException exception) {
         logger.error(exception.getMessage(),exception);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -11,4 +11,9 @@ public class CommentOutDto {
     private Long publicationId;
     private String content;
     private LocalDateTime createdAt;
+
+    private boolean edited;
+    private LocalDateTime updatedAt;
+    private int likes;
+    private double sentimentScore;
 }

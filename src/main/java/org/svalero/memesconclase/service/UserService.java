@@ -1,16 +1,15 @@
 package org.svalero.memesconclase.service;
 
-
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.svalero.memesconclase.domain.dto.UserInDto;
 import org.svalero.memesconclase.domain.dto.UserOutDto;
+import org.svalero.memesconclase.domain.dto.UserPatchDto;
 import org.svalero.memesconclase.exception.UserNotFoundException;
 import org.svalero.memesconclase.domain.User;
 import org.svalero.memesconclase.repository.UserRepository;
-
 
 import java.util.List;
 import java.util.Optional;
@@ -22,27 +21,28 @@ public class UserService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<UserOutDto> getAll(String name, String email) {
+    public List<UserOutDto> getAll(String searchTerm) {
         List<User> userList;
 
-        if (name.isEmpty() && email.isEmpty()) {
+        if (searchTerm == null || searchTerm.isEmpty()) {
             userList = userRepository.findAll();
-        } else if (name.isEmpty()) {
-            userList = userRepository.findByEmail(email)
-                    .map(List::of)
-                    .orElse(List.of());
-        } else if (email.isEmpty()) {
-            userList = userRepository.findByName(name);
         } else {
-            userList = userRepository.findByNameAndEmail(name, email);
+            userList = userRepository.findByNameOrEmail(searchTerm);
         }
 
         return modelMapper.map(userList, new TypeToken<List<UserOutDto>>() {}.getType());
     }
 
+    public List<UserOutDto> getAllWithFilters(String searchTerm, Boolean active, String sex) {
+        String search = (searchTerm == null || searchTerm.isBlank()) ? null : searchTerm;
+        List<User> users = userRepository.findByOptionalCriteria(search, active, sex);
+        return modelMapper.map(users, new TypeToken<List<UserOutDto>>() {}.getType());
+    }
 
-    public User get(long userId) throws UserNotFoundException {
-        return userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+
+    public UserOutDto get(long userId) throws UserNotFoundException {
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        return modelMapper.map(user, UserOutDto.class);
     }
 
     public UserOutDto modify (long userId, UserInDto userInDto) throws UserNotFoundException {
@@ -51,6 +51,23 @@ public class UserService {
         userRepository.save(user);
         return modelMapper.map(user, UserOutDto.class);
     }
+
+    public UserOutDto patch(long userId, UserPatchDto patch) throws UserNotFoundException {
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+
+        if (patch.getName() != null) user.setName(patch.getName());
+        if (patch.getEmail() != null) user.setEmail(patch.getEmail());
+        if (patch.getPassword() != null) user.setPassword(patch.getPassword());
+        if (patch.getBirthDate() != null) user.setBirthDate(patch.getBirthDate());
+        if (patch.getAvatar() != null) user.setAvatar(patch.getAvatar());
+        if (patch.getPhone() != null) user.setPhone(patch.getPhone());
+        if (patch.getActive() != null) user.setActive(patch.getActive());
+        if (patch.getSex() != null) user.setSex(patch.getSex());
+
+        userRepository.save(user);
+        return modelMapper.map(user, UserOutDto.class);
+    }
+
 
     public UserOutDto add(UserInDto userInDto) {
         User user = modelMapper.map(userInDto, User.class);
@@ -76,6 +93,4 @@ public class UserService {
 
         return null;
     }
-
-
 }

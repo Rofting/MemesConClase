@@ -1,956 +1,1407 @@
-openapi: 3.0.1
+openapi: 3.0.3
 info:
-  title: Social Interaction API
-  description: API for managing users, publications, comments, reactions, and friendships.
-  version: 1.0.0
+  title: Memes Con Clase API
+  version: 1.2.0
+  description: API para gestionar usuarios, publicaciones, comentarios, reacciones y amistades.
+
 tags:
   - name: users
-    description: Operaciones con los usuarios
+    description: Operaciones con usuarios
   - name: publications
-    description: Operaciones con las publicaciones
+    description: Operaciones con publicaciones
   - name: comments
-    description: Operaciones con los comentarios
+    description: Operaciones con comentarios
   - name: reactions
-    description: Operaciones con las reacciones
+    description: Operaciones con reacciones
   - name: friendships
-    description: Operaciones con los seguidores
+    description: Operaciones con amistades
+
 paths:
+
   /users:
     get:
-      tags:
-        - users
-      summary: Obtiene una lista de usuarios
-      description: Retrieve all registered users.
+      tags: [users]
+      summary: Listar usuarios (con filtros)
       parameters:
-        - name: name
+        - name: search
           in: query
-          description: Filtro por nombre
           required: false
-          schema:
-            type: string
-        - name: email
+          schema: { type: string }
+          description: Busca por nombre o email (LIKE)
+          examples:
+            ex1: { value: "ali" }
+            ex2: { value: "gmail.com" }
+        - name: active
           in: query
-          description: fitro por email
           required: false
-          schema:
-            type: string
+          schema: { type: boolean }
+          examples:
+            ex1: { value: true }
+            ex2: { value: false }
+        - name: sex
+          in: query
+          required: false
+          schema: { type: string, enum: [Male, Female, Other] }
+          examples:
+            ex1: { value: "Female" }
+            ex2: { value: "Other" }
+      responses:
+        '200':
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/UserOutDto' }
+              examples:
+                emptyList:
+                  value: []
+                twoUsers:
+                  value:
+                    - $ref: '#/components/examples/userOut1/value'
+                    - $ref: '#/components/examples/userOut2/value'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+
+    post:
+      tags: [users]
+      summary: Crear usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UserInDto' }
+            examples:
+              ex1: { $ref: '#/components/examples/userIn1' }
+              ex2: { $ref: '#/components/examples/userIn2' }
+      responses:
+        '201':
+          description: Usuario creado
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/UserOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/userOut1' }
+                ex2: { $ref: '#/components/examples/userOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+
+  /users/{userId}:
+    get:
+      tags: [users]
+      summary: Obtener usuario por ID
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 1 }
+            notFound: { value: 999 }
       responses:
         '200':
           description: Usuario encontrado
           content:
             application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/User'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InternalServerError'
-    post:
-      tags:
-        - users
-      summary: Añade un usuario
-      description: Creamos un nuevo usuario.
+              schema: { $ref: '#/components/schemas/UserOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/userOut1' }
+                ex2: { $ref: '#/components/examples/userOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+
+    put:
+      tags: [users]
+      summary: Modificar usuario (reemplazo)
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 1 }
+            other: { value: 2 }
       requestBody:
         required: true
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/UserOutDto'
+            schema: { $ref: '#/components/schemas/UserInDto' }
+            examples:
+              ex1: { $ref: '#/components/examples/userIn1' }
+              ex2: { $ref: '#/components/examples/userIn2' }
       responses:
-        '201':
-          description: User created
+        '200':
+          description: Usuario modificado
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/UserOutDto'
+              schema: { $ref: '#/components/schemas/UserOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/userOut1' }
+                ex2: { $ref: '#/components/examples/userOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
-  /users/{userId}:
-    get:
-      tags:
-        - users
-      summary: Obtiene un usuario mediante un Id
-      description: Retrieve all registered users.
+    patch:
+      tags: [users]
+      summary: Modificar parcialmente un usuario
       parameters:
         - name: userId
           in: path
-          description: Identificacion por usuario
           required: true
-          schema:
-            type: number
-            format: int64
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 1 }
+            other: { value: 2 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/UserPatchDto' }
+            examples:
+              ex1: { $ref: '#/components/examples/userPatch1' }
+              ex2: { $ref: '#/components/examples/userPatch2' }
       responses:
         '200':
-          description: Ok
+          description: Usuario actualizado parcialmente
           content:
             application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/UserOutDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InternalServerError'
+              schema: { $ref: '#/components/schemas/UserOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/userOut1' }
+                ex2: { $ref: '#/components/examples/userOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
     delete:
-      tags:
-        - users
-      summary: Eliminar un usuario
-      description: Elimina un usuario mediante un id dado
+      tags: [users]
+      summary: Eliminar usuario
       parameters:
         - name: userId
           in: path
-          description: Identificador del usuario
           required: true
-          schema:
-            type: number
-            format: int64
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 10 }
+            notFound: { value: 77 }
       responses:
-        '204':
-          description: No content
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotFound'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InternalServerError'
-    put:
-      tags:
-        - users
-      summary: Modificar un usuario
-      description: Update the details of an existing user.
-      parameters:
-        - name: userId
-          in: path
-          description: ID of the user to modify
-          required: true
-          schema:
-            type: integer
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UserInDto'
-      responses:
-        '200':
-          description: User modified
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserOutDto'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequest'
-        '404':
-          description: User not found
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InternalServerError'
+        '204': { description: Eliminado }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
   /publications:
     get:
-      tags:
-        - publications
-      summary: Get all publications
-      description: Retrieve all publications, optionally filtering by typeContent or privacy.
+      tags: [publications]
+      summary: Listar publicaciones (con filtros)
       parameters:
         - name: typeContent
           in: query
-          description: Filter by content type
           required: false
-          schema:
-            type: string
+          schema: { type: string, enum: [TEXT, IMAGE, VIDEO] }
+          examples:
+            ex1: { value: "TEXT" }
+            ex2: { value: "IMAGE" }
         - name: privacy
           in: query
-          description: Filter by privacy level
           required: false
-          schema:
-            type: string
+          schema: { type: string, enum: [PUBLIC, PRIVATE] }
+          examples:
+            ex1: { value: "PUBLIC" }
+            ex2: { value: "PRIVATE" }
+        - name: userId
+          in: query
+          required: false
+          schema: { type: integer, format: int64 }
+          examples:
+            ex1: { value: 1 }
+            ex2: { value: 5 }
       responses:
         '200':
-          description: List of publications
+          description: Lista de publicaciones
           content:
             application/json:
               schema:
                 type: array
-                items:
-                  $ref: '#/components/schemas/PublicationOutDto'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InternalServerError'
+                items: { $ref: '#/components/schemas/PublicationOutDto' }
+              examples:
+                emptyList:
+                  value: []
+                twoPublications:
+                  value:
+                    - $ref: '#/components/examples/pubOut1/value'
+                    - $ref: '#/components/examples/pubOut2/value'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
     post:
-      tags:
-        - publications
-      summary: Add a new publication
-      description: Create a new publication.
+      tags: [publications]
+      summary: Crear publicación
       requestBody:
         required: true
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/Publication'
+            schema: { $ref: '#/components/schemas/PublicationInDto' }
+            examples:
+              ex1: { $ref: '#/components/examples/pubIn1' }
+              ex2: { $ref: '#/components/examples/pubIn2' }
       responses:
         '201':
-          description: Publication created
+          description: Publicación creada
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/Publication'
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InternalServerError'
+              schema: { $ref: '#/components/schemas/PublicationOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/pubOut1' }
+                ex2: { $ref: '#/components/examples/pubOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
   /publications/{publicationId}:
     get:
-      tags:
-        - publications
-      summary: Get publication by ID
-      description: Retrieve a publication by its unique ID.
+      tags: [publications]
+      summary: Obtener publicación por ID
       parameters:
         - name: publicationId
           in: path
-          description: ID of the publication to retrieve
           required: true
-          schema:
-            type: integer
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 3 }
+            notFound: { value: 999 }
       responses:
         '200':
-          description: Publication details
+          description: Publicación encontrada
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/Publication'
-        '404':
-          description: Publication not found
+              schema: { $ref: '#/components/schemas/PublicationOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/pubOut1' }
+                ex2: { $ref: '#/components/examples/pubOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
     put:
-      tags:
-        - publications
-      summary: Modify a publication
-      description: Update the details of an existing publication.
+      tags: [publications]
+      summary: Modificar publicación (reemplazo)
       parameters:
         - name: publicationId
           in: path
-          description: ID of the publication to modify
           required: true
-          schema:
-            type: integer
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 8 }
+            other: { value: 9 }
       requestBody:
         required: true
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/PublicationInDto'
+            schema: { $ref: '#/components/schemas/PublicationInDto' }
+            examples:
+              ex1: { $ref: '#/components/examples/pubIn1' }
+              ex2: { $ref: '#/components/examples/pubIn2' }
       responses:
         '200':
-          description: Publication modified
+          description: Publicación modificada
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/PublicationOutDto'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequest'
-        '404':
-          description: Publication not found
+              schema: { $ref: '#/components/schemas/PublicationOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/pubOut1' }
+                ex2: { $ref: '#/components/examples/pubOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
-    delete:
-      tags:
-        - publications
-      summary: Delete a publication
-      description: Remove a publication by its ID.
+    patch:
+      tags: [publications]
+      summary: Modificar parcialmente una publicación
       parameters:
         - name: publicationId
           in: path
-          description: ID of the publication to delete
           required: true
-          schema:
-            type: integer
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 8 }
+            other: { value: 9 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/PublicationPatchDto' }
+            examples:
+              ex1: { $ref: '#/components/examples/pubPatch1' }
+              ex2: { $ref: '#/components/examples/pubPatch2' }
       responses:
-        '204':
-          description: Publication deleted
-        '404':
-          description: Publication not found
+        '200':
+          description: Publicación actualizada parcialmente
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/PublicationOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/pubOut1' }
+                ex2: { $ref: '#/components/examples/pubOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+
+    delete:
+      tags: [publications]
+      summary: Eliminar publicación
+      parameters:
+        - name: publicationId
+          in: path
+          required: true
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 5 }
+            notFound: { value: 66 }
+      responses:
+        '204': { description: Eliminada }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
   /comments:
     get:
-      tags:
-        - comments
-      summary: Get all comments
-      description: Retrieve all comments, optionally filtering by content or publication ID.
+      tags: [comments]
+      summary: Listar comentarios (con filtros)
       parameters:
         - name: content
           in: query
-          description: Filter by comment content
           required: false
-          schema:
-            type: string
+          schema: { type: string }
+          examples:
+            ex1: { value: "hola" }
+            ex2: { value: "gracias" }
         - name: publicationId
           in: query
-          description: Filter by publication ID
           required: false
-          schema:
-            type: integer
+          schema: { type: integer, format: int64 }
+          examples:
+            ex1: { value: 2 }
+            ex2: { value: 10 }
+        - name: userId
+          in: query
+          required: false
+          schema: { type: integer, format: int64 }
+          examples:
+            ex1: { value: 1 }
+            ex2: { value: 7 }
       responses:
         '200':
-          description: List of comments
+          description: Lista de comentarios
           content:
             application/json:
               schema:
                 type: array
-                items:
-                  $ref: '#/components/schemas/CommentOutDto'
+                items: { $ref: '#/components/schemas/CommentOutDto' }
+              examples:
+                emptyList:
+                  value: []
+                twoComments:
+                  value:
+                    - $ref: '#/components/examples/commentOut1/value'
+                    - $ref: '#/components/examples/commentOut2/value'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
     post:
-      tags:
-        - comments
-      summary: Add a new comment
-      description: Create a new comment for a publication.
+      tags: [comments]
+      summary: Crear comentario
       requestBody:
         required: true
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/Comment'
+            schema: { $ref: '#/components/schemas/CommentInDto' }
+            examples:
+              ex1: { $ref: '#/components/examples/commentIn1' }
+              ex2: { $ref: '#/components/examples/commentIn2' }
       responses:
         '201':
-          description: Comment created
+          description: Comentario creado
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/Comment'
+              schema: { $ref: '#/components/schemas/CommentOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/commentOut1' }
+                ex2: { $ref: '#/components/examples/commentOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+
   /comments/{commentId}:
     get:
-      tags:
-        - comments
-      summary: Get comment by ID
-      description: Retrieve a comment by its unique ID.
+      tags: [comments]
+      summary: Obtener comentario por ID
       parameters:
         - name: commentId
           in: path
-          description: ID of the comment to retrieve
           required: true
-          schema:
-            type: integer
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 7 }
+            notFound: { value: 999 }
       responses:
         '200':
-          description: Comment details
+          description: Comentario encontrado
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/Comment'
-        '404':
-          description: Comment not found
+              schema: { $ref: '#/components/schemas/CommentOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/commentOut1' }
+                ex2: { $ref: '#/components/examples/commentOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
     put:
-      tags:
-        - comments
-      summary: Modify a comment
-      description: Update the details of an existing comment.
+      tags: [comments]
+      summary: Modificar comentario (reemplazo)
       parameters:
         - name: commentId
           in: path
-          description: ID of the comment to modify
           required: true
-          schema:
-            type: integer
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 5 }
+            other: { value: 6 }
       requestBody:
         required: true
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/CommentInDto'
+            schema: { $ref: '#/components/schemas/CommentInDto' }
+            examples:
+              ex1: { $ref: '#/components/examples/commentIn1' }
+              ex2: { $ref: '#/components/examples/commentIn2' }
       responses:
         '200':
-          description: Comment modified
+          description: Comentario modificado
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/CommentOutDto'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequest'
-        '404':
-          description: Comment not found
+              schema: { $ref: '#/components/schemas/CommentOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/commentOut1' }
+                ex2: { $ref: '#/components/examples/commentOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
-    delete:
-      tags:
-        - comments
-      summary: Delete a comment
-      description: Remove a comment by its ID.
+    patch:
+      tags: [comments]
+      summary: Modificar parcialmente un comentario
       parameters:
         - name: commentId
           in: path
-          description: ID of the comment to delete
           required: true
-          schema:
-            type: integer
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 5 }
+            other: { value: 6 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CommentPatchDto' }
+            examples:
+              ex1: { $ref: '#/components/examples/commentPatch1' }
+              ex2: { $ref: '#/components/examples/commentPatch2' }
       responses:
-        '204':
-          description: Comment deleted
-        '404':
-          description: Comment not found
+        '200':
+          description: Comentario actualizado parcialmente
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CommentOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/commentOut1' }
+                ex2: { $ref: '#/components/examples/commentOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
+    delete:
+      tags: [comments]
+      summary: Eliminar comentario
+      parameters:
+        - name: commentId
+          in: path
+          required: true
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 3 }
+            notFound: { value: 44 }
+      responses:
+        '204': { description: Eliminado }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
   /reactions:
     get:
-      tags:
-        - reactions
-      summary: Get all reactions
-      description: Retrieve all reactions, optionally filtering by type or publication ID.
+      tags: [reactions]
+      summary: Listar reacciones (con filtros)
       parameters:
         - name: type
           in: query
-          description: Filter by reaction type
           required: false
-          schema:
-            type: string
+          schema: { type: string, enum: [LIKE, LOVE, HAHA, WOW, SAD, ANGRY] }
+          examples:
+            ex1: { value: "LIKE" }
+            ex2: { value: "WOW" }
         - name: publicationId
           in: query
-          description: Filter by publication ID
           required: false
-          schema:
-            type: integer
+          schema: { type: integer, format: int64 }
+          examples:
+            ex1: { value: 2 }
+            ex2: { value: 9 }
+        - name: userId
+          in: query
+          required: false
+          schema: { type: integer, format: int64 }
+          examples:
+            ex1: { value: 1 }
+            ex2: { value: 3 }
       responses:
         '200':
-          description: List of reactions
+          description: Lista de reacciones
           content:
             application/json:
               schema:
                 type: array
-                items:
-                  $ref: '#/components/schemas/ReactionOutDto'
+                items: { $ref: '#/components/schemas/ReactionOutDto' }
+              examples:
+                emptyList:
+                  value: []
+                twoReactions:
+                  value:
+                    - $ref: '#/components/examples/reactOut1/value'
+                    - $ref: '#/components/examples/reactOut2/value'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+
     post:
-      tags:
-        - reactions
-      summary: Crear una nueva reacción
-      description: Crea una nueva reacción para una publicación específica.
+      tags: [reactions]
+      summary: Crear reacción
       requestBody:
         required: true
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/Reaction'
+            schema: { $ref: '#/components/schemas/ReactionInDto' }
+            examples:
+              ex1: { $ref: '#/components/examples/reactIn1' }
+              ex2: { $ref: '#/components/examples/reactIn2' }
       responses:
         '201':
-          description: Reaccion Creada
+          description: Reacción creada
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/Reaction'
+              schema: { $ref: '#/components/schemas/ReactionOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/reactOut1' }
+                ex2: { $ref: '#/components/examples/reactOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
   /reactions/{reactionId}:
     get:
-      tags:
-        - reactions
-      summary: Get reaction by ID
-      description: Retrieve a reaction by its unique ID.
+      tags: [reactions]
+      summary: Obtener reacción por ID
       parameters:
         - name: reactionId
           in: path
-          description: ID of the reaction to retrieve
           required: true
-          schema:
-            type: integer
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 5 }
+            notFound: { value: 999 }
       responses:
         '200':
-          description: Reaction details
+          description: Reacción encontrada
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/Reaction'
-        '404':
-          description: Reaction not found
+              schema: { $ref: '#/components/schemas/ReactionOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/reactOut1' }
+                ex2: { $ref: '#/components/examples/reactOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
     put:
-      tags:
-        - reactions
-      summary: Modify a reaction
-      description: Update the details of an existing reaction.
+      tags: [reactions]
+      summary: Modificar reacción (reemplazo)
       parameters:
         - name: reactionId
           in: path
-          description: ID of the reaction to modify
           required: true
-          schema:
-            type: integer
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 5 }
+            other: { value: 12 }
       requestBody:
         required: true
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/ReactionInDto'
+            schema: { $ref: '#/components/schemas/ReactionInDto' }
+            examples:
+              ex1: { $ref: '#/components/examples/reactIn1' }
+              ex2: { $ref: '#/components/examples/reactIn2' }
       responses:
         '200':
-          description: Reaction modified
+          description: Reacción modificada
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/ReactionOutDto'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequest'
-        '404':
-          description: Reaction not found
+              schema: { $ref: '#/components/schemas/ReactionOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/reactOut1' }
+                ex2: { $ref: '#/components/examples/reactOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
-    delete:
-      tags:
-        - reactions
-      summary: Delete a reaction
-      description: Remove a reaction by its ID.
+    patch:
+      tags: [reactions]
+      summary: Modificar parcialmente una reacción
       parameters:
         - name: reactionId
           in: path
-          description: ID of the reaction to delete
           required: true
-          schema:
-            type: integer
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 5 }
+            other: { value: 12 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ReactionPatchDto' }
+            examples:
+              ex1: { $ref: '#/components/examples/reactPatch1' }
+              ex2: { $ref: '#/components/examples/reactPatch2' }
       responses:
-        '204':
-          description: Reaction deleted
-        '404':
-          description: Reaction not found
+        '200':
+          description: Reacción actualizada parcialmente
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ReactionOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/reactOut1' }
+                ex2: { $ref: '#/components/examples/reactOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
+    delete:
+      tags: [reactions]
+      summary: Eliminar reacción
+      parameters:
+        - name: reactionId
+          in: path
+          required: true
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 2 }
+            notFound: { value: 88 }
+      responses:
+        '204': { description: Eliminada }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
   /friendships:
     get:
-      tags:
-        - friendships
-      summary: Get all friendships
-      description: Retrieve all friendships, optionally filtering by status or user ID.
+      tags: [friendships]
+      summary: Listar amistades (con filtros)
       parameters:
-        - name: status
-          in: query
-          description: Filter by friendship status
-          required: false
-          schema:
-            type: string
         - name: userId
           in: query
-          description: Filter by user ID
           required: false
-          schema:
-            type: integer
+          schema: { type: integer, format: int64 }
+          examples:
+            ex1: { value: 1 }
+            ex2: { value: 2 }
+        - name: status
+          in: query
+          required: false
+          schema: { type: string, enum: [PENDING, ACCEPTED, BLOCKED] }
+          examples:
+            ex1: { value: "PENDING" }
+            ex2: { value: "ACCEPTED" }
+        - name: startDate
+          in: query
+          required: false
+          schema: { type: string, format: date-time }
+          examples:
+            ex1: { value: "2025-01-01T00:00:00" }
+            ex2: { value: "2025-06-01T00:00:00" }
+        - name: endDate
+          in: query
+          required: false
+          schema: { type: string, format: date-time }
+          examples:
+            ex1: { value: "2025-12-31T23:59:59" }
+            ex2: { value: "2025-06-30T23:59:59" }
       responses:
         '200':
-          description: List of friendships
+          description: Lista de amistades
           content:
             application/json:
               schema:
                 type: array
-                items:
-                  $ref: '#/components/schemas/FriendshipOutDto'
+                items: { $ref: '#/components/schemas/FriendshipOutDto' }
+              examples:
+                emptyList:
+                  value: []
+                twoFriendships:
+                  value:
+                    - $ref: '#/components/examples/friendOut1/value'
+                    - $ref: '#/components/examples/friendOut2/value'
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
     post:
-      tags:
-        - friendships
-      summary: Add a new friendship
-      description: Create a new friendship.
+      tags: [friendships]
+      summary: Crear amistad
       requestBody:
         required: true
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/Friendship'
+            schema: { $ref: '#/components/schemas/FriendshipInDto' }
+            examples:
+              ex1: { $ref: '#/components/examples/friendIn1' }
+              ex2: { $ref: '#/components/examples/friendIn2' }
       responses:
         '201':
-          description: Friendship created
+          description: Amistad creada
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/Friendship'
+              schema: { $ref: '#/components/schemas/FriendshipOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/friendOut1' }
+                ex2: { $ref: '#/components/examples/friendOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+
   /friendships/{friendshipId}:
     get:
-      tags:
-        - friendships
-      summary: Get friendship by ID
-      description: Retrieve a friendship by its unique ID.
+      tags: [friendships]
+      summary: Obtener amistad por ID
       parameters:
         - name: friendshipId
           in: path
-          description: ID of the friendship to retrieve
           required: true
-          schema:
-            type: integer
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 1 }
+            notFound: { value: 999 }
       responses:
         '200':
-          description: Friendship details
+          description: Amistad encontrada
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/Friendship'
-        '404':
-          description: Friendship not found
+              schema: { $ref: '#/components/schemas/FriendshipOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/friendOut1' }
+                ex2: { $ref: '#/components/examples/friendOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
     put:
-      tags:
-        - friendships
-      summary: Modify a friendship
-      description: Update the details of an existing friendship.
+      tags: [friendships]
+      summary: Modificar amistad (reemplazo)
       parameters:
         - name: friendshipId
           in: path
-          description: ID of the friendship to modify
           required: true
-          schema:
-            type: integer
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 1 }
+            other: { value: 2 }
       requestBody:
         required: true
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/FriendshipInDto'
+            schema: { $ref: '#/components/schemas/FriendshipInDto' }
+            examples:
+              ex1: { $ref: '#/components/examples/friendIn1' }
+              ex2: { $ref: '#/components/examples/friendIn2' }
       responses:
         '200':
-          description: Friendship modified
+          description: Amistad modificada
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/FriendshipOutDto'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequest'
-        '404':
-          description: Friendship not found
+              schema: { $ref: '#/components/schemas/FriendshipOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/friendOut1' }
+                ex2: { $ref: '#/components/examples/friendOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
-    delete:
-      tags:
-        - friendships
-      summary: Delete a friendship
-      description: Remove a friendship by its ID.
+    patch:
+      tags: [friendships]
+      summary: Modificar parcialmente una amistad
       parameters:
         - name: friendshipId
           in: path
-          description: ID of the friendship to delete
           required: true
-          schema:
-            type: integer
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 1 }
+            other: { value: 2 }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/FriendshipPatchDto' }
+            examples:
+              ex1: { $ref: '#/components/examples/friendPatch1' }
+              ex2: { $ref: '#/components/examples/friendPatch2' }
       responses:
-        '204':
-          description: Friendship deleted
-        '404':
-          description: Friendship not found
+        '200':
+          description: Amistad actualizada parcialmente
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/FriendshipOutDto' }
+              examples:
+                ex1: { $ref: '#/components/examples/friendOut1' }
+                ex2: { $ref: '#/components/examples/friendOut2' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
+
+    delete:
+      tags: [friendships]
+      summary: Eliminar amistad
+      parameters:
+        - name: friendshipId
+          in: path
+          required: true
+          schema: { type: integer, format: int64 }
+          examples:
+            ok: { value: 2 }
+            notFound: { value: 88 }
+      responses:
+        '204': { description: Eliminada }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '500': { $ref: '#/components/responses/InternalServerError' }
 
 components:
-  schemas:
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique user ID
-        name:
-          type: string
-          description: User's name
-        email:
-          type: string
-          description: User's email
-        birthDate:
-          type: string
-          format: date
-          description: Date of birth
-        active:
-          type: boolean
-          description: Indicates if user is active
 
+  schemas:
+
+    # ===== USERS =====
     UserInDto:
       type: object
+      required: [name, email, password, birthDate, active]
       properties:
-        name:
-          type: string
-          description: Name of the user
-        email:
-          type: string
-          description: Email of the user
-        password:
-          type: string
-          description: Password for the user
-        avatar:
-          type: string
-          description: URL of the user's avatar
+        name: { type: string }
+        email: { type: string, format: email }
+        password: { type: string, minLength: 6 }
+        birthDate: { type: string, format: date }
+        avatar: { type: string }
         phone:
           type: string
-          description: Phone number
+          pattern: '^[0-9]{9}$'
+        active: { type: boolean }
+        sex:
+          type: string
+          enum: [Male, Female, Other]
+
+    UserPatchDto:
+      type: object
+      properties:
+        name: { type: string }
+        email: { type: string, format: email }
+        password: { type: string, minLength: 6 }
+        birthDate: { type: string, format: date }
+        avatar: { type: string }
+        phone:
+          type: string
+          pattern: '^[0-9]{9}$'
+        active: { type: boolean }
+        sex:
+          type: string
+          enum: [Male, Female, Other]
 
     UserOutDto:
       type: object
       properties:
-        id:
-          type: integer
-          description: Unique ID of the user
-        name:
-          type: string
-          description: Name of the user
-        email:
-          type: string
-          description: Email of the user
-        birthDate:
-          type: string
-          format: date
-          description: Date of birth
-        avatar:
-          type: string
-          description: URL of the user's avatar
-        phone:
-          type: string
-          description: Phone number
-        active:
-          type: boolean
-          description: Indicates if the user is active
+        id: { type: integer, format: int64 }
+        name: { type: string }
+        email: { type: string }
+        birthDate: { type: string, format: date }
+        avatar: { type: string }
+        phone: { type: string }
+        active: { type: boolean }
+        dateRecord: { type: string, format: date-time }
+        sex: { type: string }
+        loginCount: { type: integer }
+        reputation: { type: number, format: double }
 
-    Publication:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique publication ID
-        userId:
-          type: integer
-          description: ID of the user who created the publication
-        content:
-          type: string
-          description: Content of the publication
-        imageUrl:
-          type: string
-          description: URL of an image associated with the publication
-        privacy:
-          type: string
-          enum: [ PUBLIC, PRIVATE ]
-          description: Privacy level of the publication
-
+    # ===== PUBLICATIONS =====
     PublicationInDto:
       type: object
+      required: [userId, content, typeContent, privacy, latitude, longitude]
       properties:
-        content:
-          type: string
-          description: Content of the publication
-        imageUrl:
-          type: string
-          description: URL of an image associated with the publication
-        privacy:
-          type: string
-          enum: [ PUBLIC, PRIVATE ]
-          description: Privacy level of the publication
-        typeContent:
-          type: string
-          enum: [ IMAGE, VIDEO, TEXT ]
-          description: Type of content in the publication
+        userId: { type: integer, format: int64 }
+        content: { type: string, maxLength: 500 }
+        imageUrl: { type: string }
+        typeContent: { type: string, enum: [TEXT, IMAGE, VIDEO] }
+        privacy: { type: string, enum: [PUBLIC, PRIVATE] }
+        latitude: { type: number, format: double, minimum: -90, maximum: 90 }
+        longitude: { type: number, format: double, minimum: -180, maximum: 180 }
+        views: { type: integer }
+        featured: { type: boolean }
+
+    PublicationPatchDto:
+      type: object
+      properties:
+        content: { type: string, maxLength: 500 }
+        imageUrl: { type: string }
+        typeContent: { type: string, enum: [TEXT, IMAGE, VIDEO] }
+        privacy: { type: string, enum: [PUBLIC, PRIVATE] }
+        latitude: { type: number, format: double, minimum: -90, maximum: 90 }
+        longitude: { type: number, format: double, minimum: -180, maximum: 180 }
+        views: { type: integer }
+        featured: { type: boolean }
 
     PublicationOutDto:
       type: object
       properties:
-        id:
-          type: integer
-          description: Unique ID of the publication
-        userId:
-          type: integer
-          description: ID of the user who created the publication
-        content:
-          type: string
-          description: Content of the publication
-        imageUrl:
-          type: string
-          description: URL of an image associated with the publication
-        privacy:
-          type: string
-          enum: [ PUBLIC, PRIVATE ]
-          description: Privacy level of the publication
-        typeContent:
-          type: string
-          enum: [ IMAGE, VIDEO, TEXT ]
-          description: Type of content in the publication
+        id: { type: integer, format: int64 }
+        content: { type: string }
+        imageUrl: { type: string }
+        typeContent: { type: string }
+        privacy: { type: string }
+        publicationDate: { type: string, format: date-time }
+        userName: { type: string }
+        latitude: { type: number, format: double }
+        longitude: { type: number, format: double }
+        views: { type: integer }
+        featured: { type: boolean }
 
-    Comment:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique comment ID
-        userId:
-          type: integer
-          description: ID of the user who added the comment
-        publicationId:
-          type: integer
-          description: ID of the related publication
-        content:
-          type: string
-          description: Text content of the comment
-
+    # ===== COMMENTS =====
     CommentInDto:
       type: object
+      required: [userId, publicationId, content]
       properties:
-        content:
-          type: string
-          description: Text content of the comment
+        userId: { type: integer, format: int64 }
+        publicationId: { type: integer, format: int64 }
+        content: { type: string, maxLength: 500 }
+
+    CommentPatchDto:
+      type: object
+      properties:
+        content: { type: string, maxLength: 500 }
 
     CommentOutDto:
-        type: object
-        properties:
-          id:
-            type: integer
-            description: Unique ID of the comment
-          publicationId:
-            type: integer
-            description: ID of the associated publication
-          content:
-            type: string
-            description: Text content of the comment
-
-    Reaction:
       type: object
       properties:
-        id:
-          type: integer
-          description: Unique reaction ID
-        userId:
-          type: integer
-          description: ID of the user who reacted
-        publicationId:
-          type: integer
-          description: ID of the related publication
-        type:
-          type: string
-          enum: [ LIKE, LOVE, HAHA, WOW, SAD, ANGRY ]
-          description: Type of reaction
+        id: { type: integer, format: int64 }
+        userName: { type: string }
+        publicationId: { type: integer, format: int64 }
+        content: { type: string }
+        createdAt: { type: string, format: date-time }
+        edited: { type: boolean }
+        updatedAt: { type: string, format: date-time }
+        likes: { type: integer }
+        sentimentScore: { type: number, format: double }
 
+    # ===== REACTIONS =====
     ReactionInDto:
       type: object
+      required: [userId, publicationId, type]
       properties:
-        type:
-          type: string
-          enum: [ LIKE, LOVE, HAHA, WOW, SAD, ANGRY ]
+        userId: { type: integer, format: int64 }
+        publicationId: { type: integer, format: int64 }
+        type: { type: string, enum: [LIKE, LOVE, HAHA, WOW, SAD, ANGRY] }
+
+    ReactionPatchDto:
+      type: object
+      properties:
+        type: { type: string, enum: [LIKE, LOVE, HAHA, WOW, SAD, ANGRY] }
+
     ReactionOutDto:
       type: object
       properties:
-        id:
-          type: integer
-        type:
-          type: string
-        publicationId:
-          type: integer
+        id: { type: integer, format: int64 }
+        userName: { type: string }
+        publicationId: { type: integer, format: int64 }
+        type: { type: string }
+        createdAt: { type: string, format: date-time }
+        active: { type: boolean }
+        weight: { type: integer }
+        confidence: { type: number, format: double }
 
-    Friendship:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: Unique friendship ID
-        userId:
-          type: integer
-          description: ID of the user who initiated the friendship
-        friendId:
-          type: integer
-          description: ID of the user who received the friendship request
-        status:
-          type: string
-          enum: [ PENDING, ACCEPTED, BLOCKED ]
-          description: Status of the friendship
-
+    # ===== FRIENDSHIPS =====
     FriendshipInDto:
       type: object
+      required: [userId, friendId, status]
       properties:
-        friendId:
-          type: integer
-        status:
-          type: string
-          enum: [ PENDING, ACCEPTED, BLOCKED ]
+        userId: { type: integer, format: int64 }
+        friendId: { type: integer, format: int64 }
+        status: { type: string, enum: [PENDING, ACCEPTED, BLOCKED] }
+
+    FriendshipPatchDto:
+      type: object
+      properties:
+        status: { type: string, enum: [PENDING, ACCEPTED, BLOCKED] }
+        notes: { type: string, maxLength: 255 }
+        favorite: { type: boolean }
+        closenessScore: { type: integer }
 
     FriendshipOutDto:
       type: object
       properties:
-        id:
-          type: integer
-        userId:
-          type: integer
-        friendId:
-          type: integer
-        status:
-          type: string
-          enum: [ PENDING, ACCEPTED, BLOCKED ]
+        id: { type: integer, format: int64 }
+        user: { $ref: '#/components/schemas/UserOutDto' }
+        friend: { $ref: '#/components/schemas/UserOutDto' }
+        status: { type: string }
+        createdAt: { type: string, format: date-time }
+        closenessScore: { type: integer }
+        notes: { type: string }
+        favorite: { type: boolean }
+        updatedAt: { type: string, format: date-time }
 
-    BadRequest:
+    # ===== ERRORES =====
+    ErrorMessage:
       type: object
       properties:
-        code:
-          type: string
-          description: Código de error
-          example: 400
-        message:
-          type: string
-          description: Descripción del error
-          example: Bad Request
+        fieldName: { type: string }
+        message: { type: string }
+
+    ErrorResponse:
+      type: object
+      properties:
+        code: { type: integer }
+        message: { type: string }
         errorMessages:
           type: array
-          items:
-            $ref: '#/components/schemas/ErrorMessage'
-    ErrorMessage:
-        type: object
-        properties:
-          fieldName:
-            type: string
-            description: Campo donde está el error
-            example: model
-          message:
-            type: string
-            description: Mensaje de error asociado al campo
-            example: El dato es obligatorio
+          items: { $ref: '#/components/schemas/ErrorMessage' }
+
+  responses:
+    BadRequest:
+      description: Petición inválida
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+          examples:
+            ex1:
+              value:
+                code: 400
+                message: "Bad Request"
+                errorMessages:
+                  - { fieldName: "email", message: "El formato es inválido" }
+                  - { fieldName: "password", message: "Longitud mínima 6" }
+            ex2:
+              value:
+                code: 400
+                message: "Bad Request"
+                errorMessages:
+                  - { fieldName: "latitude", message: "Debe estar entre -90 y 90" }
+
     NotFound:
-        type: object
-        properties:
-          code:
-            type: string
-            description: Código de error
-            example: 404
-          message:
-            type: string
-            description: Descripción del error
-            example: Not Found
+      description: Recurso no encontrado
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+          examples:
+            ex1:
+              value: { code: 404, message: "Not Found", errorMessages: [] }
+            ex2:
+              value:
+                code: 404
+                message: "Not Found"
+                errorMessages:
+                  - { fieldName: "id", message: "No existe el recurso con ese ID" }
+
     InternalServerError:
-        type: object
-        properties:
-          code:
-            type: string
-            description: Código de error
-            example: 500
-          message:
-            type: string
-            description: Descripción del error
-            example: Internal Server Error
+      description: Error interno del servidor
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+          examples:
+            ex1:
+              value: { code: 500, message: "Internal Server Error" }
+            ex2:
+              value:
+                code: 500
+                message: "Internal Server Error"
+                errorMessages:
+                  - { fieldName: "traceId", message: "9f2d31a..." }
+
+  examples:
+
+    # USERS
+    userIn1:
+      value:
+        name: "Alice"
+        email: "alice@example.com"
+        password: "secret1"
+        birthDate: "1990-01-01"
+        avatar: "https://img.example.com/a.png"
+        phone: "612345678"
+        active: true
+        sex: "Female"
+    userIn2:
+      value:
+        name: "Bob"
+        email: "bob@example.com"
+        password: "secret2"
+        birthDate: "1988-05-20"
+        active: true
+        sex: "Male"
+
+    userPatch1:
+      value:
+        phone: "698765432"
+        avatar: "https://img.example.com/a2.png"
+    userPatch2:
+      value:
+        active: false
+        sex: "Other"
+
+    userOut1:
+      value:
+        id: 1
+        name: "Alice"
+        email: "alice@example.com"
+        birthDate: "1990-01-01"
+        avatar: "https://img.example.com/a.png"
+        phone: "612345678"
+        active: true
+        dateRecord: "2025-01-10T12:00:00"
+        sex: "Female"
+        loginCount: 12
+        reputation: 4.5
+    userOut2:
+      value:
+        id: 2
+        name: "Bob"
+        email: "bob@example.com"
+        birthDate: "1988-05-20"
+        active: true
+        dateRecord: "2025-02-01T08:30:00"
+        sex: "Male"
+        loginCount: 3
+        reputation: 1.2
+
+    # PUBLICATIONS
+    pubIn1:
+      value:
+        userId: 1
+        content: "Hola mundo"
+        imageUrl: "https://img.example.com/p1.jpg"
+        typeContent: "TEXT"
+        privacy: "PUBLIC"
+        latitude: 40.4168
+        longitude: -3.7038
+        views: 0
+        featured: false
+    pubIn2:
+      value:
+        userId: 2
+        content: "Mi viaje"
+        typeContent: "IMAGE"
+        privacy: "PRIVATE"
+        latitude: 41.3874
+        longitude: 2.1686
+        views: 10
+        featured: true
+
+    pubPatch1:
+      value:
+        content: "Editado"
+        featured: true
+    pubPatch2:
+      value:
+        views: 20
+        privacy: "PUBLIC"
+
+    pubOut1:
+      value:
+        id: 3
+        content: "Hola mundo"
+        imageUrl: "https://img.example.com/p1.jpg"
+        typeContent: "TEXT"
+        privacy: "PUBLIC"
+        publicationDate: "2025-03-01T10:00:00"
+        userName: "Alice"
+        latitude: 40.4168
+        longitude: -3.7038
+        views: 0
+        featured: false
+    pubOut2:
+      value:
+        id: 4
+        content: "Mi viaje"
+        typeContent: "IMAGE"
+        privacy: "PRIVATE"
+        publicationDate: "2025-03-02T09:30:00"
+        userName: "Bob"
+        latitude: 41.3874
+        longitude: 2.1686
+        views: 10
+        featured: true
+
+    # COMMENTS
+    commentIn1:
+      value:
+        userId: 1
+        publicationId: 3
+        content: "¡Buen post!"
+    commentIn2:
+      value:
+        userId: 2
+        publicationId: 4
+        content: "Me encanta la foto"
+
+    commentPatch1:
+      value:
+        content: "Actualizado: ¡buenísimo!"
+    commentPatch2:
+      value:
+        content: "Corregido: gran aporte"
+
+    commentOut1:
+      value:
+        id: 7
+        userName: "Alice"
+        publicationId: 3
+        content: "¡Buen post!"
+        createdAt: "2025-03-01T10:05:00"
+        edited: false
+        updatedAt: "2025-03-01T10:05:00"
+        likes: 2
+        sentimentScore: 0.85
+    commentOut2:
+      value:
+        id: 8
+        userName: "Bob"
+        publicationId: 4
+        content: "Me encanta la foto"
+        createdAt: "2025-03-02T09:45:00"
+        edited: true
+        updatedAt: "2025-03-02T10:00:00"
+        likes: 1
+        sentimentScore: 0.92
+
+    # REACTIONS
+    reactIn1:
+      value:
+        userId: 1
+        publicationId: 3
+        type: "LIKE"
+    reactIn2:
+      value:
+        userId: 2
+        publicationId: 4
+        type: "WOW"
+
+    reactPatch1:
+      value:
+        type: "LOVE"
+    reactPatch2:
+      value:
+        type: "HAHA"
+
+    reactOut1:
+      value:
+        id: 5
+        userName: "Alice"
+        publicationId: 3
+        type: "LIKE"
+        createdAt: "2025-03-01T10:06:00"
+        active: true
+        weight: 1
+        confidence: 1.0
+    reactOut2:
+      value:
+        id: 6
+        userName: "Bob"
+        publicationId: 4
+        type: "WOW"
+        createdAt: "2025-03-02T09:46:00"
+        active: true
+        weight: 2
+        confidence: 0.9
+
+    # FRIENDSHIPS
+    friendIn1:
+      value:
+        userId: 1
+        friendId: 2
+        status: "PENDING"
+    friendIn2:
+      value:
+        userId: 2
+        friendId: 3
+        status: "ACCEPTED"
+
+    friendPatch1:
+      value:
+        status: "ACCEPTED"
+        notes: "Compañero de trabajo"
+        favorite: true
+        closenessScore: 80
+    friendPatch2:
+      value:
+        status: "BLOCKED"
+        notes: "Spam"
+        favorite: false
+        closenessScore: 0
+
+    friendOut1:
+      value:
+        id: 1
+        user:
+          id: 1
+          name: "Alice"
+          email: "alice@example.com"
+          active: true
+        friend:
+          id: 2
+          name: "Bob"
+          email: "bob@example.com"
+          active: true
+        status: "PENDING"
+        createdAt: "2025-03-01T09:00:00"
+        closenessScore: 50
+        notes: null
+        favorite: false
+        updatedAt: "2025-03-01T09:00:00"
+    friendOut2:
+      value:
+        id: 2
+        user:
+          id: 2
+          name: "Bob"
+          email: "bob@example.com"
+          active: true
+        friend:
+          id: 3
+          name: "Carol"
+          email: "carol@example.com"
+          active: true
+        status: "ACCEPTED"
+        createdAt: "2025-03-03T11:00:00"
+        closenessScore: 85
+        notes: "Amiga del gym"
+        favorite: true
+        updatedAt: "2025-03-03T11:00:00"

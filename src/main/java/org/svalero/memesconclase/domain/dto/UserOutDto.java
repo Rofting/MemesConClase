@@ -22,7 +22,9 @@ public class UserOutDto {
     private LocalDateTime dateRecord = LocalDateTime.now();
     private String sex;
 
-    // Constructor personalizado que convierte un User en un UserOutDto
+    private int loginCount;
+    private double reputation;
+
     public UserOutDto(User user) {
         this.id = user.getId();
         this.name = user.getName();
@@ -33,5 +35,8 @@ public class UserOutDto {
         this.active = user.getActive();
         this.dateRecord = user.getDateRecord();
         this.sex = user.getSex();
+        this.loginCount = user.getLoginCount();
+        this.reputation = user.getReputation();
     }
 }
+

@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.svalero.memesconclase.domain.Comment;
 import org.svalero.memesconclase.domain.dto.CommentInDto;
 import org.svalero.memesconclase.domain.dto.CommentOutDto;
+import org.svalero.memesconclase.domain.dto.CommentPatchDto;
 import org.svalero.memesconclase.exception.CommentNotFoundException;
+import org.svalero.memesconclase.exception.PublicationNotFoundException;
+import org.svalero.memesconclase.exception.UserNotFoundException;
 import org.svalero.memesconclase.service.CommentService;
 
 import java.util.List;
@@ -23,25 +25,25 @@ public class CommentController {
     private final Logger logger = LoggerFactory.getLogger(CommentController.class);
 
     @GetMapping("/comments")
-    public ResponseEntity<List<CommentOutDto>> getAll(@RequestParam(value = "content", defaultValue = "") String content,
-                                                      @RequestParam(value = "publicationId", defaultValue = "") Long publicationId) {
+    public ResponseEntity<List<CommentOutDto>> getAll(@RequestParam(value = "content", required = false) String content,
+                                                      @RequestParam(value = "publicationId", required = false) Long publicationId,
+                                                      @RequestParam(value = "userId", required = false) Long userId) {
         logger.info("Begin getAll comments");
-        List<CommentOutDto> comments = commentService.getAll(content, publicationId);
+        List<CommentOutDto> comments = commentService.getAllWithFilters(content, publicationId, userId);
         logger.info("End getAll comments");
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 
     @GetMapping("/comments/{commentId}")
-    public ResponseEntity<Comment> getById(@PathVariable long commentId) throws CommentNotFoundException {
+    public ResponseEntity<CommentOutDto> getById(@PathVariable long commentId) throws CommentNotFoundException {
         logger.info("Begin getById");
-        Comment comment = commentService.get(commentId);
+        CommentOutDto comment = commentService.get(commentId);
         logger.info("End getById");
-        return new ResponseEntity<>(commentService.get(commentId), HttpStatus.OK);
-
+        return new ResponseEntity<>(comment, HttpStatus.OK);
     }
 
     @PostMapping("/comments")
-    public ResponseEntity<CommentOutDto> addComment(@Valid @RequestBody CommentInDto commentInDto)throws CommentNotFoundException {
+    public ResponseEntity<CommentOutDto> addComment(@Valid @RequestBody CommentInDto commentInDto) throws UserNotFoundException, PublicationNotFoundException {
         logger.info("Begin add");
         CommentOutDto addComment = commentService.add(commentInDto);
         logger.info("End add");
@@ -49,11 +51,19 @@ public class CommentController {
     }
 
     @PutMapping("/comments/{commentId}")
-    public ResponseEntity<CommentOutDto>modifyComment(@PathVariable  long commentId, @Valid @RequestBody CommentInDto comment) throws CommentNotFoundException {
+    public ResponseEntity<CommentOutDto> modifyComment(@PathVariable  long commentId, @Valid @RequestBody CommentInDto comment) throws CommentNotFoundException {
         logger.info("Begin modify");
         CommentOutDto modifyComment = commentService.modify(commentId, comment);
         logger.info("End modify");
         return new ResponseEntity<>(modifyComment, HttpStatus.OK);
+    }
+
+    @PatchMapping("/comments/{commentId}")
+    public ResponseEntity<CommentOutDto> patchComment(@PathVariable long commentId, @Valid @RequestBody CommentPatchDto patch) throws CommentNotFoundException {
+        logger.info("Begin patch");
+        CommentOutDto result = commentService.patch(commentId, patch);
+        logger.info("End patch");
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @DeleteMapping("/comments/{commentId}")
@@ -64,9 +74,21 @@ public class CommentController {
         return ResponseEntity.noContent().build();
     }
 
-    @ExceptionHandler
+    @ExceptionHandler(CommentNotFoundException.class)
     public ResponseEntity<Void> handleNotFoundException(CommentNotFoundException e) {
         logger.error(e.getMessage());
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Void> handleUserNotFoundException(UserNotFoundException unfe) {
+        logger.error("Error al procesar comentario: " + unfe.getMessage());
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(PublicationNotFoundException.class)
+    public ResponseEntity<Void> handlePublicationNotFoundException(PublicationNotFoundException pnfe) {
+        logger.error("Error al procesar comentario: " + pnfe.getMessage());
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
